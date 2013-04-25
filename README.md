@@ -1,29 +1,47 @@
-# BrowserifyRails
+# browserify-rails
 
-TODO: Write a gem description
+1. Manage JS modules with `npm`
+2. Serve assets with Sprockets
+3. Require modules with `require()` (without separate `//= require` directives)
+4. Only build required modules
 
-## Installation
+## Getting Started
 
 Add this line to your application's Gemfile:
 
     gem 'browserify-rails'
 
-And then execute:
+Create `package.json` in your Rails root:
 
-    $ bundle
+```js
+{
+  "name": "something",
+  "devDependencies" : {
+    "browserify": "2.13.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.6"
+  }
+}
+```
+[TODO: Write a Rails generator for this]
 
-Or install it yourself as:
+Then run:
 
-    $ gem install browserify-rails
+    npm install
 
-## Usage
+Then start writing CommonJS, and everything will magically work!:
 
-TODO: Write usage instructions here
+```js
+// foo.js
+module.exports = function (n) { return n * 11 }
+
+// application.js
+var $ = require('./foo');
+console.log(foo(12));
+```
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Pull requests appreciated.
