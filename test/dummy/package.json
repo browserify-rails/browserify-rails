@@ -1,0 +1,12 @@
+{
+  "name": "dummy",
+  "author": "Henry Hsu <hhsu@zendesk.com>",
+  "description": "a dummy Rails application",
+  "devDependencies" : {
+    "browserify": "2.13.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.6"
+  }
+}
