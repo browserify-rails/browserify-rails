@@ -38,7 +38,7 @@ Then start writing CommonJS, and everything will magically work!:
 module.exports = function (n) { return n * 11 }
 
 // application.js
-var $ = require('./foo');
+var foo = require('./foo');
 console.log(foo(12));
 ```
 
