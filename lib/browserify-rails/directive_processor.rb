@@ -14,7 +14,7 @@ module BrowserifyRails
 
       raise ArgumentError, "#{browserify_cmd} could not be found. Please run npm install." unless File.exist?(browserify_cmd)
 
-      stdin, stdout, stderr = Open3.popen3("#{browserify_cmd} #{pathname}")
+      stdin, stdout, stderr = Open3.popen3("#{browserify_cmd} -t coffeeify --extension='.coffee' #{pathname}")
       begin
         result = stdout.read
         result_error = stderr.read.strip
