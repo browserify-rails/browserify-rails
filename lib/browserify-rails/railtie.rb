@@ -2,7 +2,7 @@ module BrowserifyRails
   class Railtie < Rails::Engine
 
     initializer :setup_browserify do |app|
-      app.assets.register_preprocessor 'application/javascript', BrowserifyRails::DirectiveProcessor
+      app.assets.register_postprocessor 'application/javascript', BrowserifyRails::DirectiveProcessor
     end
 
     rake_tasks do
