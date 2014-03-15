@@ -1,5 +1,7 @@
 # browserify-rails
 
+[![Build Status](https://travis-ci.org/hsume2/browserify-rails.png?branch=master)](https://travis-ci.org/hsume2/browserify-rails)
+
 This library adds CommonJS module support to Sprockets (via Browserify).
 
 It let's you mix and match  `//= require` directives and `require()` calls for including plain javascript files as well as modules.
@@ -65,3 +67,8 @@ If you want to use coffeescript files, add coffeeify as a dependency on `package
 ## Contributing
 
 Pull requests appreciated.
+
+## Contributors
+
+* [Henry Hsu](https://github.com/hsume2)
+* [Cássio Souza](https://github.com/cassiozen)
