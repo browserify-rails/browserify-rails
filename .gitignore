@@ -22,3 +22,4 @@ test/dummy/public/assets
 test/dummy/public/system
 test/dummy/db/schema.rb
 tmp
+test/dummy/app/assets/javascripts/*.js
