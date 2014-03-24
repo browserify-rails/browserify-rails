@@ -15,7 +15,7 @@ It let's you mix and match  `//= require` directives and `require()` calls for i
 
 Add this line to your application's Gemfile:
 
-    gem 'hsume2-browserify-rails'
+    gem 'hsume2-browserify-rails', '~> 0.1.0', :require => 'browserify-rails'
 
 Create `package.json` in your Rails root:
 
