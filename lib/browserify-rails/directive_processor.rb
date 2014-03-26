@@ -15,12 +15,6 @@ module BrowserifyRails
     def evaluate(context, locals, &block)
       if commonjs_module?
         dependencies.each do |path|
-          if path =~ /<([^>]+)>/
-            path = $1
-          else
-            path = "./#{path}" unless path.start_with?(".")
-          end
-
           context.depend_on_asset(path)
         end
 
