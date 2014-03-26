@@ -14,7 +14,7 @@ module BrowserifyRails
 
     def evaluate(context, locals, &block)
       if commonjs_module?
-        dependencies.each do |path|
+        asset_dependencies(context.environment.paths).each do |path|
           context.depend_on_asset(path)
         end
 
@@ -28,6 +28,15 @@ module BrowserifyRails
 
     def commonjs_module?
       data.to_s.include?("module.exports") || data.to_s.include?("require")
+    end
+
+    # This primarily filters out required files from node modules
+    #
+    # @return [<String>] Paths of dependencies, that are in asset directories
+    def asset_dependencies(asset_paths)
+      dependencies.select do |path|
+        path.start_with?(*asset_paths)
+      end
     end
 
     # @return [<String>] Paths of files, that this file depends on
