@@ -11,7 +11,7 @@ module BrowserifyRails
     def evaluate(context, locals, &block)
       if commonjs_module?
         asset_dependencies(context.environment.paths).each do |path|
-          context.depend_on_asset(path)
+          context.depend_on(path)
         end
 
         browserify
@@ -58,7 +58,7 @@ module BrowserifyRails
       cmd = File.join(Rails.root, BROWSERIFY_CMD)
 
       if !File.exist?(cmd)
-        raise BrowserifyError.new("browserify could not be found at #{cmd}. Please run npm install.")
+        raise BrowserifyRails::BrowserifyError.new("browserify could not be found at #{cmd}. Please run npm install.")
       end
 
       cmd
@@ -73,7 +73,7 @@ module BrowserifyRails
     # behavior of success, because everything has been compiled to plain
     # javascript at the time this processor is called.
     #
-    # @raise [BrowserifyError] if browserify does not succeed
+    # @raise [BrowserifyRails::BrowserifyError] if browserify does not succeed
     # @param options [String] Options for browserify
     # @return [String] Output on standard out
     def run_browserify(options)
@@ -82,7 +82,7 @@ module BrowserifyRails
       stdout, stderr, status = Open3.capture3(command, stdin_data: data, chdir: directory)
 
       if !status.success?
-        raise BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
+        raise BrowserifyRails::BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
       end
 
       stdout
