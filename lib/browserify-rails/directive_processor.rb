@@ -10,9 +10,6 @@ module BrowserifyRails
     class BrowserifyError < RuntimeError
     end
 
-    class ModuleDepsError < RuntimeError
-    end
-
     def prepare
     end
 
@@ -44,26 +41,14 @@ module BrowserifyRails
     end
 
     def dependencies
-      stdout, stderr, status = Open3.capture3(module_deps_cmd, stdin_data: data)
-
-      if !status.success?
-        raise ModuleDepsError.new(stderr)
-      end
-
-      JSON.parse(stdout)
+      JSON.parse(run_with_data(module_deps_cmd))
     end
 
     def browserify
       params = "-d"
       params += " -t coffeeify --extension='.coffee'" if File.directory?(COFFEEIFY_PATH)
 
-      stdout, stderr, status = Open3.capture3("#{browserify_cmd} #{params}", stdin_data: data)
-
-      if !status.success?
-        raise BrowserifyError.new(stderr)
-      end
-
-      stdout
+      run_with_data("#{browserify_cmd} #{params}")
     end
 
     def browserify_cmd
@@ -84,6 +69,28 @@ module BrowserifyRails
       end
 
       cmd
+    end
+
+    # Run `command` with `data` on standard input.
+    #
+    # We are passing the data via stdin, so that earlier preprocessing steps are
+    # respected. If you had, say, an "application.js.coffee.erb", passing the
+    # filename would fail, because browserify would read the original file with
+    # ERB tags and fail. By passing the data via stdin, we get the expected
+    # behavior of success, because everything has been compiled to plain
+    # javascript at the time this processor is called.
+    #
+    # @raise [BrowserifyError] if `command` does not succeed
+    # @param command [String]
+    # @return [String] Output on standard out
+    def run_with_data(command)
+      stdout, stderr, status = Open3.capture3(command, stdin_data: data, chdir: File.dirname(file))
+
+      if !status.success?
+        raise BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
+      end
+
+      stdout
     end
   end
 end
