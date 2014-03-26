@@ -3,11 +3,10 @@
   "author": "Henry Hsu <hhsu@zendesk.com>",
   "description": "a dummy Rails application",
   "devDependencies" : {
-    "browserify": "2.13.x",
-    "module-deps": "1.7.x"
+    "browserify": "~> 3.33"
   },
   "license": "MIT",
   "engines": {
-    "node": ">= 0.6"
+    "node": ">= 0.10"
   }
 }

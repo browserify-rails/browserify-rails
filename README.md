@@ -10,12 +10,13 @@ It let's you mix and match  `//= require` directives and `require()` calls for i
 2. Serve assets with Sprockets
 3. Require modules with `require()` (without separate `//= require` directives)
 4. Only build required modules
+5. Require *npm modules* in your Rails assets
 
 ## Getting Started
 
 Add this line to your application's Gemfile:
 
-    gem 'hsume2-browserify-rails', '~> 0.1.0', :require => 'browserify-rails'
+    gem "hsume2-browserify-rails", "~> 0.2.0", :require => "browserify-rails"
 
 Create `package.json` in your Rails root:
 
@@ -23,8 +24,7 @@ Create `package.json` in your Rails root:
 {
   "name": "something",
   "devDependencies" : {
-    "browserify": "2.13.x",
-    "module-deps": "1.7.x"
+    "browserify": "~> 3.33"
   },
   "license": "MIT",
   "engines": {
@@ -50,20 +50,10 @@ console.log(foo(12));
 ```
 
 ## Coffeescript
-If you want to use coffeescript files, add coffeeify as a dependency on `package.json`:
-```js
-{
-  "name": "something",
-  "devDependencies" : {
-    "browserify": "2.13.x"
-    "coffeeify": "0.6.x"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">= 0.6"
-  }
-}
-```
+
+Coffeescript is handled seamlessly, if you name your files `*.js.coffee`. That
+way the coffeescript compiler will already have done it's work, when we are
+putting the javascript tools to work.
 
 ## Contributing
 
@@ -73,3 +63,4 @@ Pull requests appreciated.
 
 * [Henry Hsu](https://github.com/hsume2)
 * [Cássio Souza](https://github.com/cassiozen)
+* [Marten Lienen](https://github.com/CQQL)
