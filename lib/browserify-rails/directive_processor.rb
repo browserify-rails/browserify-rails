@@ -14,10 +14,7 @@ module BrowserifyRails
 
     def evaluate(context, locals, &block)
       if commonjs_module?
-        dependencies.each do |dep|
-          path = File.basename(dep["id"], context.environment.root)
-          next if path == File.basename(file)
-
+        dependencies.each do |path|
           if path =~ /<([^>]+)>/
             path = $1
           else
