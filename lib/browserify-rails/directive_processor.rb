@@ -4,7 +4,6 @@ require "json"
 module BrowserifyRails
   class DirectiveProcessor < Tilt::Template
     BROWSERIFY_CMD = "./node_modules/.bin/browserify".freeze
-    COFFEEIFY_PATH = "./node_modules/coffeeify".freeze
 
     class BrowserifyError < RuntimeError
     end
@@ -49,7 +48,6 @@ module BrowserifyRails
 
     def browserify
       options = "-d"
-      options += " -t coffeeify --extension='.coffee'" if File.directory?(COFFEEIFY_PATH)
 
       run_browserify(options)
     end

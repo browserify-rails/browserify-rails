@@ -50,20 +50,10 @@ console.log(foo(12));
 ```
 
 ## Coffeescript
-If you want to use coffeescript files, add coffeeify as a dependency on `package.json`:
-```js
-{
-  "name": "something",
-  "devDependencies" : {
-    "browserify": "2.13.x"
-    "coffeeify": "0.6.x"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">= 0.6"
-  }
-}
-```
+
+Coffeescript is handled seamlessly, if you name your files `*.js.coffee`. That
+way the coffeescript compiler will already have done it's work, when are putting
+the javascript tools to work.
 
 ## Contributing
 
