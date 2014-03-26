@@ -2,7 +2,7 @@ require "open3"
 require "json"
 
 module BrowserifyRails
-  class DirectiveProcessor < Tilt::Template
+  class BrowserifyProcessor < Tilt::Template
     BROWSERIFY_CMD = "./node_modules/.bin/browserify".freeze
 
     def prepare
