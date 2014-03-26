@@ -52,8 +52,8 @@ console.log(foo(12));
 ## Coffeescript
 
 Coffeescript is handled seamlessly, if you name your files `*.js.coffee`. That
-way the coffeescript compiler will already have done it's work, when are putting
-the javascript tools to work.
+way the coffeescript compiler will already have done it's work, when we are
+putting the javascript tools to work.
 
 ## Contributing
 
@@ -63,3 +63,4 @@ Pull requests appreciated.
 
 * [Henry Hsu](https://github.com/hsume2)
 * [Cássio Souza](https://github.com/cassiozen)
+* [Marten Lienen](https://github.com/CQQL)
