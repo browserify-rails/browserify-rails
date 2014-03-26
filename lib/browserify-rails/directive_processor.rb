@@ -5,9 +5,6 @@ module BrowserifyRails
   class DirectiveProcessor < Tilt::Template
     BROWSERIFY_CMD = "./node_modules/.bin/browserify".freeze
 
-    class BrowserifyError < RuntimeError
-    end
-
     def prepare
     end
 
@@ -56,7 +53,7 @@ module BrowserifyRails
       cmd = File.join(Rails.root, BROWSERIFY_CMD)
 
       if !File.exist?(cmd)
-        raise ArgumentError, "#{cmd} could not be found. Please run npm install."
+        raise BrowserifyError.new("browserify could not be found at #{cmd}. Please run npm install.")
       end
 
       cmd
