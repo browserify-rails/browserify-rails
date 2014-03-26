@@ -3,9 +3,8 @@ require "json"
 
 module BrowserifyRails
   class DirectiveProcessor < Tilt::Template
-    BROWSERIFY_CMD  = "./node_modules/.bin/browserify".freeze
-    MODULE_DEPS_CMD = "./node_modules/.bin/module-deps".freeze
-    COFFEEIFY_PATH  = "./node_modules/coffeeify".freeze
+    BROWSERIFY_CMD = "./node_modules/.bin/browserify".freeze
+    COFFEEIFY_PATH = "./node_modules/coffeeify".freeze
 
     class BrowserifyError < RuntimeError
     end
@@ -40,8 +39,12 @@ module BrowserifyRails
       data.to_s.include?("module.exports") || data.to_s.include?("require")
     end
 
+    # @return [<String>] Paths of files, that this file depends on
     def dependencies
-      JSON.parse(run_with_data(module_deps_cmd))
+      run_with_data("#{browserify_cmd} --list").lines.map(&:strip).select do |path|
+        # Filter the temp file, where browserify caches the input stream
+        File.exists?(path)
+      end
     end
 
     def browserify
@@ -53,16 +56,6 @@ module BrowserifyRails
 
     def browserify_cmd
       cmd = File.join(Rails.root, BROWSERIFY_CMD)
-
-      if !File.exist?(cmd)
-        raise ArgumentError, "#{cmd} could not be found. Please run npm install."
-      end
-
-      cmd
-    end
-
-    def module_deps_cmd
-      cmd = File.join(Rails.root, MODULE_DEPS_CMD)
 
       if !File.exist?(cmd)
         raise ArgumentError, "#{cmd} could not be found. Please run npm install."
