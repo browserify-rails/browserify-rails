@@ -44,14 +44,26 @@ module BrowserifyRails
     end
 
     def dependencies
-      JSON.parse(run_command("#{module_deps_cmd} #{file}"))
+      stdout, stderr, status = Open3.capture3(module_deps_cmd, stdin_data: data)
+
+      if !status.success?
+        raise ModuleDepsError.new(stderr)
+      end
+
+      JSON.parse(stdout)
     end
 
     def browserify
       params = "-d"
       params += " -t coffeeify --extension='.coffee'" if File.directory?(COFFEEIFY_PATH)
 
-      run_command("#{browserify_cmd} #{params} #{file}")
+      stdout, stderr, status = Open3.capture3("#{browserify_cmd} #{params}", stdin_data: data)
+
+      if !status.success?
+        raise BrowserifyError.new(stderr)
+      end
+
+      stdout
     end
 
     def browserify_cmd
@@ -72,23 +84,6 @@ module BrowserifyRails
       end
 
       cmd
-    end
-
-    def run_command(command)
-      stdin, stdout, stderr = Open3.popen3("#{command}")
-      begin
-        result = stdout.read
-        result_error = stderr.read.strip
-        if result_error.empty?
-          result
-        else
-          raise ModuleDepsError, result_error
-        end
-      ensure
-        stdin.close
-        stdout.close
-        stderr.close
-      end
     end
   end
 end
