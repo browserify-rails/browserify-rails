@@ -10,6 +10,7 @@ It let's you mix and match  `//= require` directives and `require()` calls for i
 2. Serve assets with Sprockets
 3. Require modules with `require()` (without separate `//= require` directives)
 4. Only build required modules
+5. Require *npm modules* in your Rails assets
 
 ## Getting Started
 
