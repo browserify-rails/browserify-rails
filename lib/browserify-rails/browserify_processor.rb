@@ -9,7 +9,7 @@ module BrowserifyRails
     end
 
     def evaluate(context, locals, &block)
-      if commonjs_module?
+      if should_browserify? && commonjs_module?
         asset_dependencies(context.environment.paths).each do |path|
           context.depend_on(path)
         end
@@ -21,6 +21,12 @@ module BrowserifyRails
     end
 
     private
+
+    def should_browserify?
+      Rails.application.config.browserify_rails.paths.any? do |path_spec|
+        path_spec === file
+      end
+    end
 
     # Is this a commonjs module?
     #
