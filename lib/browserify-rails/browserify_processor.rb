@@ -22,8 +22,12 @@ module BrowserifyRails
 
     private
 
+    # Is this a commonjs module?
+    #
+    # Be here as strict as possible, so that non-commonjs files are not
+    # preprocessed.
     def commonjs_module?
-      data.to_s.include?("module.exports") || data.to_s.include?("require")
+      data.to_s.include?("module.exports") || dependencies.length > 0
     end
 
     # This primarily filters out required files from node modules
