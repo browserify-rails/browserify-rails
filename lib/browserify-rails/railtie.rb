@@ -3,8 +3,8 @@ module BrowserifyRails
     config.browserify_rails = ActiveSupport::OrderedOptions.new
 
     # Which paths should be browserified?
-    config.browserify_rails.paths = [-> (p) { p.start_with?(Rails.root.join("app").to_s) },
-                                     -> (p) { p.start_with?(Rails.root.join("node_modules").to_s) }]
+    config.browserify_rails.paths = [lambda { |p| p.start_with?(Rails.root.join("app").to_s) },
+                                     lambda { |p| p.start_with?(Rails.root.join("node_modules").to_s) }]
 
     # Environments to generate source maps in
     config.browserify_rails.source_map_environments = ["development"]
