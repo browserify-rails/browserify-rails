@@ -54,7 +54,7 @@ module BrowserifyRails
     end
 
     def browserify
-      if Rails.config.browserify_rails.source_map_environments.include?(Rails.env)
+      if Rails.application.config.browserify_rails.source_map_environments.include?(Rails.env)
         options = "-d"
       else
         options = ""
