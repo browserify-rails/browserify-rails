@@ -1,5 +1,7 @@
 module BrowserifyRails
   class Railtie < Rails::Engine
+    config.browserify_rails = ActiveSupport::OrderedOptions.new
+
     initializer :setup_browserify do |app|
       app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
     end

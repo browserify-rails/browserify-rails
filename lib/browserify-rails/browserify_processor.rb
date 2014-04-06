@@ -44,13 +44,6 @@ module BrowserifyRails
     end
 
     def browserify
-      # Only generate source maps in development
-      if Rails.env == "development"
-        options = "-d"
-      else
-        options = ""
-      end
-
       run_browserify(options)
     end
 
@@ -86,6 +79,26 @@ module BrowserifyRails
       end
 
       stdout
+    end
+
+    def options
+      options = []
+
+      options.push("-d") if Rails.env.development?
+
+      if config.commandline_options.present?
+        if config.commandline_options.is_a? Array
+          options.push(*config.commandline_options)
+        else
+          options.push(config.commandline_options)
+        end
+      end
+
+      options.uniq.join(' ')
+    end
+
+    def config
+      BrowserifyRails::Railtie.config.browserify_rails
     end
   end
 end
