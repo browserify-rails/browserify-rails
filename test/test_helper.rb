@@ -12,3 +12,9 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Remove tmp dir of dummy app
 FileUtils.rm_rf "#{File.dirname(__FILE__)}/dummy/tmp"
+
+ActiveSupport::TestCase.class_eval do
+  def fixture(filename)
+    File.open(File.join(File.dirname(__FILE__), "/fixtures/#{filename}")).read.strip
+  end
+end

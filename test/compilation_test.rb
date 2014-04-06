@@ -79,8 +79,4 @@ class BrowserifyTest < ActionController::IntegrationTest
     get "/assets/application.js"
     assert_match /BrowserifyRails::BrowserifyError/, @response.body
   end
-
-  def fixture(filename)
-    File.open(File.join(File.dirname(__FILE__), "/fixtures/#{filename}")).read.strip
-  end
 end
