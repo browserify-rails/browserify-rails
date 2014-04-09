@@ -55,6 +55,26 @@ Coffeescript is handled seamlessly, if you name your files `*.js.coffee`. That
 way the coffeescript compiler will already have done it's work, when we are
 putting the javascript tools to work.
 
+## Configuration
+
+```ruby
+class My::Application < Rails::Application
+  # Paths, that should be browserified. We browserify everything, that
+  # matches (===) one of the paths. So you will most likely put lambdas
+  # regexes in here.
+  #
+  # By default only files in /app and /node_modules are browserified,
+  # vendor stuff is normally not made for browserification and may stop
+  # working.
+  config.browserify_rails.paths << /vendor\/assets\/javascripts\/module.js/
+
+  # Environments, in which to generate source maps
+  #
+  # The default is `["development"]`.
+  config.browserify_rails.source_map_environments << "production"
+end
+```
+
 ## Contributing
 
 Pull requests appreciated.
