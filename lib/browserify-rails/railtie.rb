@@ -9,6 +9,11 @@ module BrowserifyRails
     # Environments to generate source maps in
     config.browserify_rails.source_map_environments = ["development"]
 
+    # Load granular configuration
+    filename = File.join(Dir.pwd, 'config', 'browserify.yml')
+    configuration = YAML::load(File.read(filename)) if File.exist? filename
+    config.browserify_rails_granular = configuration || {}
+
     initializer :setup_browserify do |app|
       app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
     end
