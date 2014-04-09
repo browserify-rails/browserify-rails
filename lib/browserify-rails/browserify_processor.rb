@@ -9,7 +9,7 @@ module BrowserifyRails
     end
 
     def evaluate(context, locals, &block)
-      if commonjs_module?
+      if should_browserify? && commonjs_module?
         asset_dependencies(context.environment.paths).each do |path|
           context.depend_on(path)
         end
@@ -22,8 +22,18 @@ module BrowserifyRails
 
     private
 
+    def should_browserify?
+      Rails.application.config.browserify_rails.paths.any? do |path_spec|
+        path_spec === file
+      end
+    end
+
+    # Is this a commonjs module?
+    #
+    # Be here as strict as possible, so that non-commonjs files are not
+    # preprocessed.
     def commonjs_module?
-      data.to_s.include?("module.exports") || data.to_s.include?("require")
+      data.to_s.include?("module.exports") || dependencies.length > 0
     end
 
     # This primarily filters out required files from node modules
@@ -37,7 +47,7 @@ module BrowserifyRails
 
     # @return [<String>] Paths of files, that this file depends on
     def dependencies
-      run_browserify("--list").lines.map(&:strip).select do |path|
+      @dependencies ||= run_browserify("--list").lines.map(&:strip).select do |path|
         # Filter the temp file, where browserify caches the input stream
         File.exists?(path)
       end
@@ -84,7 +94,7 @@ module BrowserifyRails
     def options
       options = []
 
-      options.push("-d") if Rails.env.development?
+      options.push("-d") if config.source_map_environments.include?(Rails.env)
 
       if config.commandline_options.present?
         if config.commandline_options.is_a? Array

@@ -55,25 +55,35 @@ Coffeescript is handled seamlessly, if you name your files `*.js.coffee`. That
 way the coffeescript compiler will already have done it's work, when we are
 putting the javascript tools to work.
 
-## Browserify command line options
+## Configuration
 
-By default `browserify` is run with `-d` option (Enable source maps) in
-development environment and without any options in all other environments.
-
-You can easily extend the options which are used when running `browserify`, by
-adding `config.browserify_rails.commandline_options` to your `config/application.rb`
-or your environment file (`config/environments/*.rb`):
+You can configure different options of browserify-rails by adding one of lines
+mentioned below into your `config/application.rb` or your environment file
+(`config/environments/*.rb`):
 
 ```ruby
-# config/application.rb
-Example::Application.config do
+class My::Application < Rails::Application
+  # Paths, that should be browserified. We browserify everything, that
+  # matches (===) one of the paths. So you will most likely put lambdas
+  # regexes in here.
+  #
+  # By default only files in /app and /node_modules are browserified,
+  # vendor stuff is normally not made for browserification and may stop
+  # working.
+  config.browserify_rails.paths << /vendor\/assets\/javascripts\/module.js/
 
-  # Browserify-rails supports options provided as an array:
+  # Environments, in which to generate source maps
+  #
+  # The default is `["development"]`.
+  config.browserify_rails.source_map_environments << "production"
+
+  # Command line options used when running browserify
+  #
+  # can be provided as an array:
   config.browserify_rails.commandline_options = ["-t browserify-shim", "--fast"]
 
   # or as a string:
   config.browserify_rails.commandline_options = "-t browserify-shim --fast"
-end
 ```
 
 ## Contributing
