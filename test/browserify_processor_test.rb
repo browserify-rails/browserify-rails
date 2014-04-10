@@ -33,9 +33,9 @@ class BrowserifyProcessorTest < ActiveSupport::TestCase
     assert_equal "-d -i test3.js", @processor.send(:options)
   end
 
-  test "should add -d option if in development environment" do
+  test "should add -d option if current env is in source_maps_env list" do
     stub_engine_config :commandline_options, ["-i test4.js"]
-    Rails.env.stubs(:development?).returns(true)
+    stub_engine_config :source_map_environments, [Rails.env]
 
     assert_equal "-d -i test4.js", @processor.send(:options)
   end
