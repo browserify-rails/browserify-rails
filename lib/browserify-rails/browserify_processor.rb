@@ -96,15 +96,9 @@ module BrowserifyRails
 
       options.push("-d") if config.source_map_environments.include?(Rails.env)
 
-      if config.commandline_options.present?
-        if config.commandline_options.is_a? Array
-          options.push(*config.commandline_options)
-        else
-          options.push(config.commandline_options)
-        end
-      end
+      options += Array(config.commandline_options) if config.commandline_options.present?
 
-      options.uniq.join(' ')
+      options.uniq.join(" ")
     end
 
     def config
