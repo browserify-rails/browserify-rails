@@ -54,12 +54,6 @@ module BrowserifyRails
     end
 
     def browserify
-      if Rails.application.config.browserify_rails.source_map_environments.include?(Rails.env)
-        options = "-d"
-      else
-        options = ""
-      end
-
       run_browserify(options)
     end
 
@@ -95,6 +89,20 @@ module BrowserifyRails
       end
 
       stdout
+    end
+
+    def options
+      options = []
+
+      options.push("-d") if config.source_map_environments.include?(Rails.env)
+
+      options += Array(config.commandline_options) if config.commandline_options.present?
+
+      options.uniq.join(" ")
+    end
+
+    def config
+      BrowserifyRails::Railtie.config.browserify_rails
     end
   end
 end

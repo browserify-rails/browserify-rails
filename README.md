@@ -57,6 +57,10 @@ putting the javascript tools to work.
 
 ## Configuration
 
+You can configure different options of browserify-rails by adding one of lines
+mentioned below into your `config/application.rb` or your environment file
+(`config/environments/*.rb`):
+
 ```ruby
 class My::Application < Rails::Application
   # Paths, that should be browserified. We browserify everything, that
@@ -72,7 +76,14 @@ class My::Application < Rails::Application
   #
   # The default is `["development"]`.
   config.browserify_rails.source_map_environments << "production"
-end
+
+  # Command line options used when running browserify
+  #
+  # can be provided as an array:
+  config.browserify_rails.commandline_options = ["-t browserify-shim", "--fast"]
+
+  # or as a string:
+  config.browserify_rails.commandline_options = "-t browserify-shim --fast"
 ```
 
 ## Contributing
@@ -84,3 +95,4 @@ Pull requests appreciated.
 * [Henry Hsu](https://github.com/hsume2)
 * [Cássio Souza](https://github.com/cassiozen)
 * [Marten Lienen](https://github.com/CQQL)
+* [Lukasz Sagol](https://github.com/zgryw)
