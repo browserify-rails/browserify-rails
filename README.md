@@ -24,11 +24,11 @@ Create `package.json` in your Rails root:
 {
   "name": "something",
   "devDependencies" : {
-    "browserify": "~> 3.33"
+    "browserify": "~> 4.1"
   },
   "license": "MIT",
   "engines": {
-    "node": ">= 0.6"
+    "node": ">= 0.10"
   }
 }
 ```
