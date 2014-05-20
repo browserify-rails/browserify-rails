@@ -32,7 +32,6 @@ Create `package.json` in your Rails root:
   }
 }
 ```
-[TODO: Write a Rails generator for this]
 
 Then run:
 
