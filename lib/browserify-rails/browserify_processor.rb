@@ -80,7 +80,8 @@ module BrowserifyRails
     # @param options [String] Options for browserify
     # @return [String] Output on standard out
     def run_browserify(options)
-      command = "#{browserify_cmd} #{options}"
+      # The dash tells browserify to read from STDIN
+      command = "#{browserify_cmd} #{options} -"
       directory = File.dirname(file)
       stdout, stderr, status = Open3.capture3(command, stdin_data: data, chdir: directory)
 
