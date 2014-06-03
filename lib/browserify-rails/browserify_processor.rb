@@ -9,7 +9,7 @@ module BrowserifyRails
     end
 
     def evaluate(context, locals, &block)
-      if should_browserify? && commonjs_module?
+      if should_browserify?
         asset_dependencies(context.environment.paths).each do |path|
           context.depend_on(path)
         end
@@ -23,7 +23,12 @@ module BrowserifyRails
     private
 
     def should_browserify?
-      Rails.application.config.browserify_rails.paths.any? do |path_spec|
+      in_path? && commonjs_module?
+    end
+
+    # Is this file in any of the configured paths?
+    def in_path?
+      config.paths.any? do |path_spec|
         path_spec === file
       end
     end
