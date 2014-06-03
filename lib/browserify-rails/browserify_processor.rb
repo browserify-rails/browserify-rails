@@ -1,5 +1,4 @@
 require "open3"
-require "json"
 
 module BrowserifyRails
   class BrowserifyProcessor < Tilt::Template
