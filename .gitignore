@@ -24,3 +24,4 @@ test/dummy/db/schema.rb
 tmp
 test/dummy/app/assets/javascripts/*.js
 test/dummy/app/assets/javascripts/**/*.js
+test/dummy/app/assets/javascripts/**/*.js.coffee
