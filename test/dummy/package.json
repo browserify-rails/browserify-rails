@@ -3,7 +3,8 @@
   "author": "Henry Hsu <hhsu@zendesk.com>",
   "description": "a dummy Rails application",
   "devDependencies" : {
-    "browserify": "~> 4.1"
+    "browserify": "~> 4.1",
+    "coffeeify": "~> 0.6"
   },
   "license": "MIT",
   "engines": {

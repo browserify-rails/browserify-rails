@@ -39,6 +39,8 @@ module Dummy
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # Add CoffeeScript support
+    config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.coffee\""
   end
 end
-
