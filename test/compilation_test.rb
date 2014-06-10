@@ -8,6 +8,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/foo.js.example"), File.join(Rails.root, "app/assets/javascripts/foo.js"))
     FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/nested/index.js.example"), File.join(Rails.root, "app/assets/javascripts/nested/index.js"))
     FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/mocha.js.coffee.example"), File.join(Rails.root, "app/assets/javascripts/mocha.js.coffee"))
+    FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/coffee.js.coffee.example"), File.join(Rails.root, "app/assets/javascripts/coffee.js.coffee"))
   end
 
   test "asset pipeline should serve application.js" do
@@ -77,6 +78,11 @@ class BrowserifyTest < ActionController::IntegrationTest
 
     assert_response :success
     assert_equal expected_output, @response.body.strip
+  end
+
+  test "browserifies files with coffee requires" do
+    get "/assets/coffee.js"
+    assert_no_match /BrowserifyRails::BrowserifyError/, @response.body
   end
 
   test "throws BrowserifyError if something went wrong while executing browserify" do

@@ -48,11 +48,26 @@ var foo = require('./foo');
 console.log(foo(12));
 ```
 
-## Coffeescript
+## CoffeeScript
 
-Coffeescript is handled seamlessly, if you name your files `*.js.coffee`. That
-way the coffeescript compiler will already have done it's work, when we are
-putting the javascript tools to work.
+For CoffeeScript support, make sure to follow the standard rails
+`.js.coffee` naming convention.  You'll also need to do the following:
+
+Add `coffeify` as a dependency within `package.json`:
+
+```js
+{
+  "devDependencies" : {
+    "coffeeify": "~> 0.6"
+  }
+}
+```
+
+Add the following command line options within `application.rb`:
+
+```rb
+config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.coffee\""
+```
 
 ## Configuration
 
