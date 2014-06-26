@@ -85,6 +85,29 @@ class BrowserifyTest < ActionController::IntegrationTest
     assert_no_match /BrowserifyRails::BrowserifyError/, @response.body
   end
 
+  test "uses NODE_PATH so files can be required non-relatively" do
+    get "/assets/node_path_based_require.js"
+
+    assert_response :success
+    assert_equal false, @response.body.include?("Error: Cannot find module 'some_folder/answer'")
+  end
+
+  test "uses config/browserify.yml to mark a module as globally available via --require" do
+    get "/assets/app_main.js"
+
+    assert_response :success
+    assert_equal true, @response.body.include?("THIS IS A HUGE LIBRARY")
+    assert_equal true, @response.body.include?("QASPk4")     # browserify internal global id for app_a_huge_library.js module
+  end
+
+  test "uses config/browserify.yml for browserification options" do
+    get "/assets/app_secondary.js"
+
+    assert_response :success
+    assert_equal true, @response.body.include?("QASPk4")     # browserify internal global id for app_a_huge_library.js module
+    assert_equal false, @response.body.include?("THIS IS A HUGE LIBRARY")
+  end
+
   test "throws BrowserifyError if something went wrong while executing browserify" do
     File.open(File.join(Rails.root, "app/assets/javascripts/application.js"), "w+") do |f|
       f.puts "var foo = require('./foo');"

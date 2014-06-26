@@ -11,6 +11,8 @@ It let's you mix and match  `//= require` directives and `require()` calls for i
 3. Require modules with `require()` (without separate `//= require` directives)
 4. Only build required modules
 5. Require *npm modules* in your Rails assets
+6. Require modules relative to asset paths (ie app/assets/javascript) with non-relative syntax (see below before using)
+7. Configure browserify options for each JavaScript file so you can mark modules with `--require`, `--external`, etc
 
 ## Getting Started
 
@@ -73,6 +75,8 @@ config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.co
 
 ## Configuration
 
+### Global configuration
+
 You can configure different options of browserify-rails by adding one of lines
 mentioned below into your `config/application.rb` or your environment file
 (`config/environments/*.rb`):
@@ -101,6 +105,53 @@ class My::Application < Rails::Application
   # or as a string:
   config.browserify_rails.commandline_options = "-t browserify-shim --fast"
 ```
+
+### Per file configuration
+
+Say you have three JavaScript files and one is a huge library you would like to
+use in both. Browserify lets you mark that huge library with --require in one
+file (to both bundle it and mark it with a special internal ID) and then
+require it in the other file and mark it with --external (so it is not bundled
+into the file but instead accessed via browserify internals using that special
+ID). Note that this only works when the file that has the library bundled is
+loaded before the file that uses the library with --external.
+
+```yaml
+javascript:
+  main:
+    require:
+      - a_huge_library
+  secondary:
+    external:
+      - a_huge_library
+```
+
+Note that any valid browserify option is allowed in the YAML file but not
+use cases have been considered. If your use case does not work, please open
+an issue with a runnable example of the problem including your
+browserify.yml file.
+
+## Support for rails asset directories as non-relative module sources
+
+In the Rails asset pipeline, it is common to have files in
+app/assets/javascripts and being able to do `//= require some_file` which
+exists in one of the asset/javascript directories. In some cases, it is
+useful to have similar functionality with browserify. This has been added
+by putting the Rails asset paths into NODE_PATH environment variable when
+running browserify.
+
+But this comes at a large cost: right now, it breaks source maps. This might
+be a bug or a fixable breakage but it hasn't been solved yet.
+
+Why leave it in? Because some typical Rails components break without it.
+For example, jasmine-rails expects to be able to move JavaScript to
+different depths. So if you do a relative require from spec/javascript to
+app/assets/javascripts, your tests will fail to run when RAILS_ENV=test.
+
+So if you really need this, use it. But if you really need it for files that
+are not tests, you should definitely figure out an alternative. Support
+for this may go away if we cannot fix the issue(s) with source maps being
+invalid.
 
 ## Contributing
 

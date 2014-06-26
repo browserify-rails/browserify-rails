@@ -1,0 +1,8 @@
+debug: false
+javascript:
+  app_main:
+    require:
+      - app_a_huge_library
+  app_secondary:
+    external:
+      - app_a_huge_library
