@@ -163,3 +163,4 @@ Pull requests appreciated.
 * [Cássio Souza](https://github.com/cassiozen)
 * [Marten Lienen](https://github.com/CQQL)
 * [Lukasz Sagol](https://github.com/zgryw)
+* [Cymen Vig](https://github.com/cymen)
