@@ -160,7 +160,18 @@ invalid.
 
 ## Contributing
 
-Pull requests appreciated.
+Pull requests appreciated. Pull requests will not be rejected based on
+ideological neurosis of either the NodeJS or the Ruby on Rails communities.
+In other words, technical needs are respected.
+
+## Potential areas of change (contributions welcome)
+
+### Multiple modules
+
+Often one has one main module (say a library module) and other modules that
+consume the main module. It would be nice to be able to establish this
+relationship in the YAML file to avoid having to manually manage the require
+and external entries for the involved modules.
 
 ## Contributors
 
