@@ -6,11 +6,11 @@ require 'browserify-rails/version'
 Gem::Specification.new do |spec|
   spec.name          = "browserify-rails"
   spec.version       = BrowserifyRails::VERSION
-  spec.authors       = ["Henry Hsu"]
-  spec.email         = ["hhsu@zendesk.com"]
+  spec.authors       = ["Henry Hsu, Cymen Vig"]
+  spec.email         = ["hhsu@zendesk.com, cymenvig@gmail.com"]
   spec.description   = %q{Browserify + Rails = CommonJS Heaven}
   spec.summary       = %q{Get the best of both worlds: Browserify + Rails = CommonJS Heaven}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/browserify-rails/browserify-rails"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
