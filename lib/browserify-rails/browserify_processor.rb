@@ -23,20 +23,20 @@ module BrowserifyRails
     private
 
     def asset_paths
-      @asset_paths ||= Rails.application.config.assets.paths.collect { |p| p.to_s }.join(':') || ''
+      @asset_paths ||= Rails.application.config.assets.paths.collect { |p| p.to_s }.join(":") || ""
     end
 
     def debug?
-      @config.has_key?('debug') && @config['debug']
+      @config.has_key?("debug") && @config["debug"]
     end
 
     def has_config?(logical_path)
-      @config.has_key?('javascript') && @config['javascript'].has_key?(logical_path)
+      @config.has_key?("javascript") && @config["javascript"].has_key?(logical_path)
     end
 
     def get_config(logical_path)
-      if @config.has_key?('javascript')
-        @config['javascript'][logical_path]
+      if @config.has_key?("javascript")
+        @config["javascript"][logical_path]
       end
     end
 
@@ -106,19 +106,18 @@ module BrowserifyRails
       if has_config?(logical_path)
         config = get_config logical_path
 
-        options += " " + config.keys.collect { |key|
-          config[key].collect { |value|
-            "--#{key} #{value}"
-          }
-        }.join(" ")
+        granular_options = config.keys.collect do |key|
+          config[key].collect { |value| "--#{key} #{value}" }
+        end
+
+        options += " " + granular_options.join(" ")
       end
 
       directory = File.dirname(file)
-      # The dash tells browserify to read from STDIN
       command = "#{browserify_cmd} #{options} -"
-      puts "Browserify: #{command}\n\n" if debug?
+      puts "Browserify: #{command}" if debug?
       env = {
-        'NODE_PATH' => asset_paths
+        "NODE_PATH" => asset_paths
       }
       stdout, stderr, status = Open3.capture3(env, command, stdin_data: data, chdir: directory)
 
