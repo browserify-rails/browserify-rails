@@ -18,7 +18,7 @@ It let's you mix and match  `//= require` directives and `require()` calls for i
 
 Add this line to your application's Gemfile:
 
-    gem "browserify-rails", "~> 0.3"
+    gem "browserify-rails", "~> 0.4"
 
 Create `package.json` in your Rails root:
 
@@ -106,7 +106,11 @@ class My::Application < Rails::Application
   config.browserify_rails.commandline_options = "-t browserify-shim --fast"
 ```
 
-### Per file configuration
+### Multiple bundles
+
+node-browserify supports [multiple bundles](https://github.com/substack/node-browserify#multiple-bundles)
+and so do does rails-browserify. It does this using `config/browserify.yml`.
+Below is an example.
 
 Say you have three JavaScript files and one is a huge library you would like to
 use in both. Browserify lets you mark that huge library with --require in one
@@ -134,14 +138,15 @@ browserify.yml file.
 ## Support for rails asset directories as non-relative module sources
 
 In the Rails asset pipeline, it is common to have files in
-app/assets/javascripts and being able to do `//= require some_file` which
+`app/assets/javascripts` and being able to do `//= require some_file` which
 exists in one of the asset/javascript directories. In some cases, it is
 useful to have similar functionality with browserify. This has been added
 by putting the Rails asset paths into NODE_PATH environment variable when
 running browserify.
 
-But this comes at a large cost: right now, it breaks source maps. This might
-be a bug or a fixable breakage but it hasn't been solved yet.
+But this comes at a large cost: right now, it appears to break source maps.
+This might be a bug or a fixable breakage but it hasn't been solved yet. The
+use of NODE_PATH is also contentious in the NodeJS community.
 
 Why leave it in? Because some typical Rails components break without it.
 For example, jasmine-rails expects to be able to move JavaScript to
