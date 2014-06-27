@@ -1,0 +1,5 @@
+var library = require('./a_huge_library');
+
+module.exports = function() {
+  console.log('library', library);
+};

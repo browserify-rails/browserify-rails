@@ -35,9 +35,7 @@ module BrowserifyRails
     end
 
     def get_config(logical_path)
-      if @config.has_key?("javascript")
-        @config["javascript"][logical_path]
-      end
+      @config["javascript"][logical_path] if @config.has_key?("javascript")
     end
 
     def should_browserify?

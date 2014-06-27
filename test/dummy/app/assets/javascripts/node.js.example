@@ -1,0 +1,3 @@
+var answer = require('some_folder/answer');
+
+console.log('answer', answer);

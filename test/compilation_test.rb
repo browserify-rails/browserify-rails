@@ -17,8 +17,10 @@ class BrowserifyTest < ActionController::IntegrationTest
     copy_example_file "mocha.js.coffee.example"
     copy_example_file "coffee.js.coffee.example"
     copy_example_file "node_path_based_require.js.example"
-    copy_example_file "app_main.js.example"
-    copy_example_file "app_secondary.js.example"
+    copy_example_file "main.js.example"
+    copy_example_file "secondary.js.example"
+    copy_example_file "a_huge_library.js.example"
+    copy_example_file "some_folder/answer.js.example"
   end
 
   test "asset pipeline should serve application.js" do
@@ -96,26 +98,33 @@ class BrowserifyTest < ActionController::IntegrationTest
   end
 
   test "uses NODE_PATH so files can be required non-relatively" do
+    expected_output = fixture("node_path_based_require.out.js")
+
     get "/assets/node_path_based_require.js"
 
     assert_response :success
+    assert_equal expected_output, @response.body.strip
     assert_equal false, @response.body.include?("Error: Cannot find module 'some_folder/answer'")
   end
 
   test "uses config/browserify.yml to mark a module as globally available via --require" do
-    get "/assets/app_main.js"
+    expected_output = fixture("main.out.js")
+
+    get "/assets/main.js"
 
     assert_response :success
-    assert_equal true, @response.body.include?("THIS IS A HUGE LIBRARY")
-    assert_equal true, @response.body.include?("QASPk4")     # browserify internal global id for app_a_huge_library.js module
+    assert_equal expected_output, @response.body.strip
+    assert_equal true, @response.body.include?("ReMerY")     # browserify internal global id for a_huge_library.js module
   end
 
   test "uses config/browserify.yml for browserification options" do
-    get "/assets/app_secondary.js"
+    expected_output = fixture("secondary.out.js")
+
+    get "/assets/secondary.js"
 
     assert_response :success
-    assert_equal true, @response.body.include?("QASPk4")     # browserify internal global id for app_a_huge_library.js module
-    assert_equal false, @response.body.include?("THIS IS A HUGE LIBRARY")
+    assert_equal expected_output, @response.body.strip
+    assert_equal true, @response.body.include?("ReMerY")     # browserify internal global id for a_huge_library.js module
   end
 
   test "throws BrowserifyError if something went wrong while executing browserify" do
