@@ -161,6 +161,21 @@ are not tests, you should definitely figure out an alternative. Support
 for this may go away if we cannot fix the issue(s) with source maps being
 invalid.
 
+## Troubleshooting
+
+### Clear the asset pipeline cache
+
+The Rails asset pipeline caches some files in the `tmp` directory off of
+Rails root. It can happen that sometimes the cache does not get invalidated
+correctly. You can manually clear the cache in at least two ways:
+
+1. `rake tmp:cache:clear`
+2. `rm -rf ./tmp` (when in the root directory of the Rails project)
+
+The second method is definitely brute force but if you experience issues,
+it is definitely worth trying before spending too much time debugging
+why something that is browserified appears to not match the sources files.
+
 ## Contributing
 
 Pull requests appreciated. Pull requests will not be rejected based on
