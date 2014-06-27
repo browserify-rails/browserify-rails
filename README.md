@@ -1,6 +1,5 @@
 # browserify-rails
-
-[![Build Status](https://travis-ci.org/hsume2/browserify-rails.png?branch=master)](https://travis-ci.org/hsume2/browserify-rails)
+[![Build Status](https://travis-ci.org/browserify-rails/browserify-rails.svg?branch=master)](https://travis-ci.org/browserify-rails/browserify-rails)
 
 This library adds CommonJS module support to Sprockets (via Browserify).
 
