@@ -1,0 +1,14 @@
+// pretend this file is 1 MB
+//
+// app_main.js is going to require() it and browserify.yml is going to tell it to use --require on it
+//
+// app_secondary.js is going to require() it too but we know app_main.js is always going to be loaded
+// so browserify.yml will be configured to mark it as --external so it is not bundled in
+//
+// this results in app_main.js taking the cost of loading app_a_huge_library.js
+//
+// and app_secondary.js saving the cost of loading app_a_huge_library.js (because again,
+// we know a priori that something else has loaded it)
+
+
+module.exports = "THIS IS A HUGE LIBRARY";

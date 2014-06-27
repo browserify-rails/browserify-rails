@@ -1,8 +1,8 @@
 debug: false
 javascript:
-  app_main:
+  main:
     require:
-      - app_a_huge_library
-  app_secondary:
+      - a_huge_library
+  secondary:
     external:
-      - app_a_huge_library
+      - a_huge_library
