@@ -26,10 +26,6 @@ module BrowserifyRails
       @asset_paths ||= Rails.application.config.assets.paths.collect { |p| p.to_s }.join(":") || ""
     end
 
-    def debug?
-      @config.has_key?("debug") && @config["debug"]
-    end
-
     def has_config?(logical_path)
       @config.has_key?("javascript") && @config["javascript"].has_key?(logical_path)
     end
@@ -113,7 +109,7 @@ module BrowserifyRails
 
       directory = File.dirname(file)
       command = "#{browserify_cmd} #{options} -"
-      puts "Browserify: #{command}" if debug?
+      Logger::log "Browserify: #{command}"
       env = {
         "NODE_PATH" => asset_paths
       }
