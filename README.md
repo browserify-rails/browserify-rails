@@ -73,6 +73,10 @@ Add the following command line options within `application.rb`:
 config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.coffee\""
 ```
 
+## Requirements
+
+* node-browserify 4.x
+
 ## Configuration
 
 ### Global configuration
