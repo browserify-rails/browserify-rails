@@ -1,14 +1,24 @@
 require "test_helper"
 
 class BrowserifyTest < ActionController::IntegrationTest
+  def copy_example_file(filename)
+    example_file = File.join(Rails.root, "app/assets/javascripts/#{filename}")
+    new_file = File.join(Rails.root, "app/assets/javascripts/#{filename.gsub(/\.example$/, '')}")
+
+    FileUtils.cp(example_file, new_file)
+  end
+
   setup do
     Rails.application.assets.cache = nil
 
-    FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/application.js.example"), File.join(Rails.root, "app/assets/javascripts/application.js"))
-    FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/foo.js.example"), File.join(Rails.root, "app/assets/javascripts/foo.js"))
-    FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/nested/index.js.example"), File.join(Rails.root, "app/assets/javascripts/nested/index.js"))
-    FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/mocha.js.coffee.example"), File.join(Rails.root, "app/assets/javascripts/mocha.js.coffee"))
-    FileUtils.cp(File.join(Rails.root, "app/assets/javascripts/coffee.js.coffee.example"), File.join(Rails.root, "app/assets/javascripts/coffee.js.coffee"))
+    copy_example_file "application.js.example"
+    copy_example_file "foo.js.example"
+    copy_example_file "nested/index.js.example"
+    copy_example_file "mocha.js.coffee.example"
+    copy_example_file "coffee.js.coffee.example"
+    copy_example_file "node_path_based_require.js.example"
+    copy_example_file "app_main.js.example"
+    copy_example_file "app_secondary.js.example"
   end
 
   test "asset pipeline should serve application.js" do
