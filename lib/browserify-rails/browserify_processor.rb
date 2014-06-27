@@ -5,6 +5,7 @@ module BrowserifyRails
     BROWSERIFY_CMD = "./node_modules/.bin/browserify".freeze
 
     def prepare
+      @config = Rails.application.config.browserify_rails_granular
     end
 
     def evaluate(context, locals, &block)
@@ -13,13 +14,31 @@ module BrowserifyRails
           context.depend_on(path)
         end
 
-        browserify
+        browserify context.logical_path
       else
         data
       end
     end
 
     private
+
+    def asset_paths
+      @asset_paths ||= Rails.application.config.assets.paths.collect { |p| p.to_s }.join(":") || ""
+    end
+
+    def debug?
+      @config.has_key?("debug") && @config["debug"]
+    end
+
+    def has_config?(logical_path)
+      @config.has_key?("javascript") && @config["javascript"].has_key?(logical_path)
+    end
+
+    def get_config(logical_path)
+      if @config.has_key?("javascript")
+        @config["javascript"][logical_path]
+      end
+    end
 
     def should_browserify?
       in_path? && commonjs_module?
@@ -57,8 +76,8 @@ module BrowserifyRails
       end
     end
 
-    def browserify
-      run_browserify(options)
+    def browserify(logical_path)
+      run_browserify(options, logical_path)
     end
 
     def browserify_cmd
@@ -83,11 +102,24 @@ module BrowserifyRails
     # @raise [BrowserifyRails::BrowserifyError] if browserify does not succeed
     # @param options [String] Options for browserify
     # @return [String] Output on standard out
-    def run_browserify(options)
-      # The dash tells browserify to read from STDIN
-      command = "#{browserify_cmd} #{options} -"
+    def run_browserify(options, logical_path=nil)
+      if has_config?(logical_path)
+        config = get_config logical_path
+
+        granular_options = config.keys.collect do |key|
+          config[key].collect { |value| "--#{key} #{value}" }
+        end
+
+        options += " " + granular_options.join(" ")
+      end
+
       directory = File.dirname(file)
-      stdout, stderr, status = Open3.capture3(command, stdin_data: data, chdir: directory)
+      command = "#{browserify_cmd} #{options} -"
+      puts "Browserify: #{command}" if debug?
+      env = {
+        "NODE_PATH" => asset_paths
+      }
+      stdout, stderr, status = Open3.capture3(env, command, stdin_data: data, chdir: directory)
 
       if !status.success?
         raise BrowserifyRails::BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
