@@ -21,6 +21,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     copy_example_file "secondary.js.example"
     copy_example_file "a_huge_library.js.example"
     copy_example_file "some_folder/answer.js.example"
+    copy_example_file "browserified.js.example"
   end
 
   test "asset pipeline should serve application.js" do
@@ -105,6 +106,11 @@ class BrowserifyTest < ActionController::IntegrationTest
     assert_response :success
     assert_equal expected_output, @response.body.strip
     assert_equal false, @response.body.include?("Error: Cannot find module 'some_folder/answer'")
+  end
+
+  test "skips files that are already browserified" do
+    get "/assets/browserified.js"
+    assert_equal fixture("browserified.out.js"), @response.body.strip
   end
 
   test "uses config/browserify.yml to mark a module as globally available via --require" do
