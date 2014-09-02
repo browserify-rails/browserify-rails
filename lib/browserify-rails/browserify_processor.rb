@@ -35,7 +35,7 @@ module BrowserifyRails
     end
 
     def should_browserify?
-      in_path? && commonjs_module?
+      in_path? && !browserified? && commonjs_module?
     end
 
     # Is this file in any of the configured paths?
@@ -43,6 +43,11 @@ module BrowserifyRails
       config.paths.any? do |path_spec|
         path_spec === file
       end
+    end
+
+    # Is this file already packaged for the browser?
+    def browserified?
+      data.to_s.include?("define.amd") || data.to_s.include?("_dereq_")
     end
 
     # Is this a commonjs module?
