@@ -120,7 +120,6 @@ class BrowserifyTest < ActionController::IntegrationTest
 
     assert_response :success
     assert_equal expected_output, @response.body.strip
-    assert_equal true, @response.body.include?("ReMerY")     # browserify internal global id for a_huge_library.js module
   end
 
   test "uses config/browserify.yml for browserification options" do
@@ -130,7 +129,6 @@ class BrowserifyTest < ActionController::IntegrationTest
 
     assert_response :success
     assert_equal expected_output, @response.body.strip
-    assert_equal true, @response.body.include?("ReMerY")     # browserify internal global id for a_huge_library.js module
   end
 
   test "throws BrowserifyError if something went wrong while executing browserify" do
