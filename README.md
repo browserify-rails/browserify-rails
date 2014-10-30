@@ -138,29 +138,6 @@ use cases have been considered. If your use case does not work, please open
 an issue with a runnable example of the problem including your
 browserify.yml file.
 
-## Support for rails asset directories as non-relative module sources
-
-In the Rails asset pipeline, it is common to have files in
-`app/assets/javascripts` and being able to do `//= require some_file` which
-exists in one of the asset/javascript directories. In some cases, it is
-useful to have similar functionality with browserify. This has been added
-by putting the Rails asset paths into NODE_PATH environment variable when
-running browserify.
-
-But this comes at a large cost: right now, it appears to break source maps.
-This might be a bug or a fixable breakage but it hasn't been solved yet. The
-use of NODE_PATH is also contentious in the NodeJS community.
-
-Why leave it in? Because some typical Rails components break without it.
-For example, jasmine-rails expects to be able to move JavaScript to
-different depths. So if you do a relative require from spec/javascript to
-app/assets/javascripts, your tests will fail to run when RAILS_ENV=test.
-
-So if you really need this, use it. But if you really need it for files that
-are not tests, you should definitely figure out an alternative. Support
-for this may go away if we cannot fix the issue(s) with source maps being
-invalid.
-
 ## Troubleshooting
 
 ### Clear the asset pipeline cache

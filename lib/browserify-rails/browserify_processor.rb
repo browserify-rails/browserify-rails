@@ -115,10 +115,7 @@ module BrowserifyRails
       directory = File.dirname(file)
       command = "#{browserify_cmd} #{options} -"
       Logger::log "Browserify: #{command}"
-      env = {
-        "NODE_PATH" => asset_paths
-      }
-      stdout, stderr, status = Open3.capture3(env, command, stdin_data: data, chdir: directory)
+      stdout, stderr, status = Open3.capture3(command, stdin_data: data, chdir: directory)
 
       if !status.success?
         raise BrowserifyRails::BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")

@@ -16,7 +16,6 @@ class BrowserifyTest < ActionController::IntegrationTest
     copy_example_file "nested/index.js.example"
     copy_example_file "mocha.js.coffee.example"
     copy_example_file "coffee.js.coffee.example"
-    copy_example_file "node_path_based_require.js.example"
     copy_example_file "main.js.example"
     copy_example_file "secondary.js.example"
     copy_example_file "a_huge_library.js.example"
@@ -96,16 +95,6 @@ class BrowserifyTest < ActionController::IntegrationTest
   test "browserifies files with coffee requires" do
     get "/assets/coffee.js"
     assert_no_match /BrowserifyRails::BrowserifyError/, @response.body
-  end
-
-  test "uses NODE_PATH so files can be required non-relatively" do
-    expected_output = fixture("node_path_based_require.out.js")
-
-    get "/assets/node_path_based_require.js"
-
-    assert_response :success
-    assert_equal expected_output, @response.body.strip
-    assert_equal false, @response.body.include?("Error: Cannot find module 'some_folder/answer'")
   end
 
   test "skips files that are already browserified" do
