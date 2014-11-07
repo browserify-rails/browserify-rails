@@ -3,7 +3,7 @@
 
 This library adds CommonJS module support to Sprockets (via Browserify).
 
-It let's you mix and match  `//= require` directives and `require()` calls for including plain javascript files as well as modules.
+It lets you mix and match  `//= require` directives and `require()` calls for including plain javascript files as well as modules.
 
 1. Manage JS modules with `npm`
 2. Serve assets with Sprockets
@@ -80,7 +80,7 @@ config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.co
 
 ### Global configuration
 
-You can configure different options of browserify-rails by adding one of lines
+You can configure different options of browserify-rails by adding one of the lines
 mentioned below into your `config/application.rb` or your environment file
 (`config/environments/*.rb`):
 
@@ -165,7 +165,7 @@ invalid.
 
 ### Clear the asset pipeline cache
 
-The Rails asset pipeline caches some files in the `tmp` directory off of
+The Rails asset pipeline caches some files in the `tmp` directory inside
 Rails root. It can happen that sometimes the cache does not get invalidated
 correctly. You can manually clear the cache in at least two ways:
 
