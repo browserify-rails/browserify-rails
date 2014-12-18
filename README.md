@@ -54,7 +54,7 @@ console.log(foo(12));
 For CoffeeScript support, make sure to follow the standard rails
 `.js.coffee` naming convention.  You'll also need to do the following:
 
-Add `coffeify` as a dependency within `package.json`:
+Add `coffeeify` as a dependency within `package.json`:
 
 ```js
 {
