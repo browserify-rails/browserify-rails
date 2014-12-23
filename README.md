@@ -100,6 +100,11 @@ class My::Application < Rails::Application
   # The default is `["development"]`.
   config.browserify_rails.source_map_environments << "production"
 
+  # Should the node_modules directory be evaluated for changes on page load
+  #
+  # The default is `true`
+  config.browserify_rails.evaluate_node_modules = false
+
   # Command line options used when running browserify
   #
   # can be provided as an array:
