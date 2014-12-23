@@ -1,9 +1,10 @@
 require "test_helper"
 
 class BrowserifyTest < ActionController::IntegrationTest
-  def copy_example_file(filename)
-    example_file = File.join(Rails.root, "app/assets/javascripts/#{filename}")
-    new_file = File.join(Rails.root, "app/assets/javascripts/#{filename.gsub(/\.example$/, '')}")
+  def copy_example_file(filename, path = nil)
+    path ||= "app/assets/javascripts"
+    example_file = File.join(Rails.root, path, filename)
+    new_file = File.join(Rails.root, path, filename.gsub(/\.example$/, ''))
 
     FileUtils.cp(example_file, new_file)
   end
@@ -22,6 +23,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     copy_example_file "a_huge_library.js.example"
     copy_example_file "some_folder/answer.js.example"
     copy_example_file "browserified.js.example"
+    copy_example_file "index.js.example", "node_modules/node-test-package"
   end
 
   test "asset pipeline should serve application.js" do
@@ -33,9 +35,52 @@ class BrowserifyTest < ActionController::IntegrationTest
   end
 
   test "asset pipeline should serve foo.js" do
-    expected_output = fixture("foo.out.js")
+    expected_output = fixture("application.out.js")
 
-    get "/assets/foo.js"
+    get "/assets/application.js"
+    assert_response :success
+    assert_equal expected_output, @response.body.strip
+  end
+
+  test "asset pipeline should regenerate application.js when node_modules changes" do
+    Dummy::Application.config.browserify_rails.evaluate_node_modules = false
+    expected_output = fixture("application.out.js")
+
+    get "/assets/application.js"
+    assert_response :success
+    assert_equal expected_output, @response.body.strip
+
+    # Ensure that Sprockets can detect the change to the file modification time
+    sleep 1
+
+    File.open(File.join(Rails.root, "node_modules/node-test-package/index.js"), "w+") do |f|
+      f.puts 'module.exports = console.log("goodbye friend");'
+    end
+
+    expected_output = fixture("application.out.js")
+
+    get "/assets/application.js"
+    assert_response :success
+    assert_equal expected_output, @response.body.strip
+  end
+
+  test "asset pipeline should not regenerate application.js when node_modules changes" do
+    expected_output = fixture("application.out.js")
+
+    get "/assets/application.js"
+    assert_response :success
+    assert_equal expected_output, @response.body.strip
+
+    # Ensure that Sprockets can detect the change to the file modification time
+    sleep 1
+
+    File.open(File.join(Rails.root, "node_modules/node-test-package/index.js"), "w+") do |f|
+      f.puts 'module.exports = console.log("goodbye friend");'
+    end
+
+    expected_output = fixture("application.node_test_package_changed.out.js")
+
+    get "/assets/application.js"
     assert_response :success
     assert_equal expected_output, @response.body.strip
   end
