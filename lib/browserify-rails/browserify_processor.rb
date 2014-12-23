@@ -10,7 +10,7 @@ module BrowserifyRails
 
     def evaluate(context, locals, &block)
       if should_browserify?
-        asset_dependencies(context.environment.paths).each do |path|
+        evaluate_dependencies(context.environment.paths).each do |path|
           context.depend_on(path)
         end
 
@@ -60,8 +60,10 @@ module BrowserifyRails
 
     # This primarily filters out required files from node modules
     #
-    # @return [<String>] Paths of dependencies, that are in asset directories
-    def asset_dependencies(asset_paths)
+    # @return [<String>] Paths of dependencies to evaluate
+    def evaluate_dependencies(asset_paths)
+      return dependencies if config.evaluate_node_modules
+
       dependencies.select do |path|
         path.start_with?(*asset_paths)
       end
