@@ -164,7 +164,7 @@ module BrowserifyRails
     end
 
     def uses_browserifyinc(force=nil)
-      force.present? ? force : config.use_browserifyinc
+      !force.nil? ? force : config.use_browserifyinc
     end
 
     def browserify_command(force=nil)
