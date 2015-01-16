@@ -42,7 +42,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     assert_equal expected_output, @response.body.strip
   end
 
-  test "asset pipeline should regenerate application.js when node_modules changes" do
+  test "asset pipeline should not regenerate application.js when node_modules changes" do
     Dummy::Application.config.browserify_rails.evaluate_node_modules = false
     expected_output = fixture("application.out.js")
 
@@ -64,7 +64,8 @@ class BrowserifyTest < ActionController::IntegrationTest
     assert_equal expected_output, @response.body.strip
   end
 
-  test "asset pipeline should not regenerate application.js when node_modules changes" do
+  test "asset pipeline should regenerate application.js when node_modules changes" do
+    Dummy::Application.config.browserify_rails.evaluate_node_modules = true
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
