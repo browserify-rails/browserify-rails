@@ -102,8 +102,8 @@ class My::Application < Rails::Application
 
   # Should the node_modules directory be evaluated for changes on page load
   #
-  # The default is `true`
-  config.browserify_rails.evaluate_node_modules = false
+  # The default is `false`
+  config.browserify_rails.evaluate_node_modules = true
 
   # Command line options used when running browserify
   #

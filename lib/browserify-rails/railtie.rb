@@ -7,7 +7,7 @@ module BrowserifyRails
                                      lambda { |p| p.start_with?(Rails.root.join("node_modules").to_s) }]
 
     # Should node_modules be evaluated assets before run_browserify
-    config.browserify_rails.evaluate_node_modules = true
+    config.browserify_rails.evaluate_node_modules = false
 
     # Environments to generate source maps in
     config.browserify_rails.source_map_environments = ["development"]
