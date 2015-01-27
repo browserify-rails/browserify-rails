@@ -4,7 +4,8 @@
   "description": "a dummy Rails application",
   "devDependencies" : {
     "browserify": "~> 6.2",
-    "coffeeify": "~> 0.6"
+    "coffeeify": "~> 0.6",
+    "node-test-package": "~> 0.0.2"
   },
   "license": "MIT",
   "engines": {
