@@ -143,6 +143,14 @@ use cases have been considered. If your use case does not work, please open
 an issue with a runnable example of the problem including your
 browserify.yml file.
 
+### Inside Isolated Engines
+
+To make browserify-rails work inside an isolated engine, add the engine app directory to the browserify-rails paths (inside engine.rb):
+
+```ruby
+config.browserify_rails.paths << lambda { |p| p.start_with?(Engine.root.join("app").to_s) }
+```
+
 ## Support for rails asset directories as non-relative module sources
 
 In the Rails asset pipeline, it is common to have files in
