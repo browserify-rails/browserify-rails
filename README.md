@@ -100,6 +100,11 @@ class My::Application < Rails::Application
   # The default is `["development"]`.
   config.browserify_rails.source_map_environments << "production"
 
+  # Should the node_modules directory be evaluated for changes on page load
+  #
+  # The default is `false`
+  config.browserify_rails.evaluate_node_modules = true
+
   # Command line options used when running browserify
   #
   # can be provided as an array:
@@ -137,6 +142,14 @@ Note that any valid browserify option is allowed in the YAML file but not
 use cases have been considered. If your use case does not work, please open
 an issue with a runnable example of the problem including your
 browserify.yml file.
+
+### Inside Isolated Engines
+
+To make browserify-rails work inside an isolated engine, add the engine app directory to the browserify-rails paths (inside engine.rb):
+
+```ruby
+config.browserify_rails.paths << lambda { |p| p.start_with?(Engine.root.join("app").to_s) }
+```
 
 ## Support for rails asset directories as non-relative module sources
 

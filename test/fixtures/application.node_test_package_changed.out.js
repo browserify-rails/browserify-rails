@@ -10,6 +10,6 @@ module.exports = function (n) { return n * 11 }
 module.exports.NESTED = true;
 
 },{}],4:[function(require,module,exports){
-module.exports = console.log("hello friend");
+module.exports = console.log("goodbye friend");
 
 },{}]},{},[1]);

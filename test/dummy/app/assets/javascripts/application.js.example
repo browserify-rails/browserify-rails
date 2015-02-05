@@ -1,1 +1,2 @@
 var foo = require('./foo');
+var nodeTestPackage = require('node-test-package');
