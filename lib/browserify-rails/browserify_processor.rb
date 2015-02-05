@@ -96,7 +96,7 @@ module BrowserifyRails
       @dependencies ||= begin
         # We forcefully run browserify (avoiding browserifyinc) with the --list
         # option to get a list of files.
-        list = run_browserify(nil, "--list", false)
+        list = run_browserify(nil, "--list")
 
         list.lines.map(&:strip).select do |path|
           # Filter the temp file, where browserify caches the input stream
