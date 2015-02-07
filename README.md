@@ -76,6 +76,7 @@ config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.co
 ## Requirements
 
 * node-browserify 4.x
+* browserify-incremental
 
 ## Configuration
 
