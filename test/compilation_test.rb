@@ -12,6 +12,9 @@ class BrowserifyTest < ActionController::IntegrationTest
   setup do
     Rails.application.assets.cache = nil
 
+    cache_file = File.join(Rails.root, "tmp/browserify-rails/browserifyinc-cache.json")
+    File.delete(cache_file) if File.exists?(cache_file)
+
     copy_example_file "application.js.example"
     copy_example_file "foo.js.example"
     copy_example_file "nested/index.js.example"
@@ -30,6 +33,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
   end
@@ -38,28 +42,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
-    assert_response :success
-    assert_equal expected_output, @response.body.strip
-  end
 
-  test "asset pipeline should not regenerate application.js when node_modules changes" do
-    Dummy::Application.config.browserify_rails.evaluate_node_modules = false
-    expected_output = fixture("application.out.js")
-
-    get "/assets/application.js"
-    assert_response :success
-    assert_equal expected_output, @response.body.strip
-
-    # Ensure that Sprockets can detect the change to the file modification time
-    sleep 1
-
-    File.open(File.join(Rails.root, "node_modules/node-test-package/index.js"), "w+") do |f|
-      f.puts 'module.exports = console.log("goodbye friend");'
-    end
-
-    expected_output = fixture("application.out.js")
-
-    get "/assets/application.js"
     assert_response :success
     assert_equal expected_output, @response.body.strip
   end
@@ -69,6 +52,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
 
@@ -82,6 +66,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.node_test_package_changed.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
   end
@@ -90,6 +75,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
 
@@ -104,6 +90,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.foo_changed.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
   end
@@ -112,6 +99,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
 
@@ -126,6 +114,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     expected_output = fixture("application.changed.out.js")
 
     get "/assets/application.js"
+
     assert_response :success
     assert_equal expected_output, @response.body.strip
   end
@@ -141,6 +130,7 @@ class BrowserifyTest < ActionController::IntegrationTest
 
   test "browserifies files with coffee requires" do
     get "/assets/coffee.js"
+
     assert_no_match /BrowserifyRails::BrowserifyError/, @response.body
   end
 
@@ -156,6 +146,7 @@ class BrowserifyTest < ActionController::IntegrationTest
 
   test "skips files that are already browserified" do
     get "/assets/browserified.js"
+
     assert_equal fixture("browserified.out.js"), @response.body.strip
   end
 
@@ -184,6 +175,7 @@ class BrowserifyTest < ActionController::IntegrationTest
     end
 
     get "/assets/application.js"
+
     assert_match /BrowserifyRails::BrowserifyError/, @response.body
   end
 end

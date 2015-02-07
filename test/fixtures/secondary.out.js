@@ -1,11 +1,11 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/cvig/dev/teespring/browserify-rails/test/dummy/app/assets/javascripts/_stream_0.js":[function(require,module,exports){
 var library = require('./a_huge_library');
 
 module.exports = function() {
   console.log('some problem', library);
 };
 
-},{"./a_huge_library":"/a_huge_library"}],2:[function(require,module,exports){
+},{"./a_huge_library":"/a_huge_library"}],"/Users/cvig/dev/teespring/browserify-rails/test/dummy/app/assets/javascripts/a_huge_library.js":[function(require,module,exports){
 // pretend this file is 1 MB
 //
 // app_main.js is going to require() it and browserify.yml is going to tell it to use --require on it
@@ -21,4 +21,4 @@ module.exports = function() {
 
 module.exports = "THIS IS A HUGE LIBRARY";
 
-},{}]},{},[1]);
+},{}]},{},["/Users/cvig/dev/teespring/browserify-rails/test/dummy/app/assets/javascripts/_stream_0.js"]);

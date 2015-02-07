@@ -13,7 +13,7 @@ module BrowserifyRails
     config.browserify_rails.source_map_environments = ["development"]
 
     # Use browserifyinc instead of browserify
-    config.browserify_rails.use_browserifyinc = false
+    config.browserify_rails.use_browserifyinc = true
 
     initializer :setup_browserify do |app|
       # Load granular configuration
