@@ -16,7 +16,8 @@ FileUtils.rm_rf "#{File.dirname(__FILE__)}/dummy/tmp"
 ActiveSupport::TestCase.class_eval do
   def fixture(filename)
     File.open(File.join(File.dirname(__FILE__), "fixtures", filename)) do |f|
-      f.read.strip
+      contents = f.read.strip
+      contents.gsub(/__RAILS_ROOT__/, Rails.root.to_s) if contents
     end
   end
 end
