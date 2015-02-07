@@ -195,9 +195,11 @@ module BrowserifyRails
       return nil if granular_config.blank?
 
       # We set separate options for each of the items in granular_config
-      granular_config.keys.collect do |key|
+      options = granular_config.keys.collect do |key|
         granular_config[key].collect { |value| "--#{key} #{value}" }
       end
+
+      options.flatten.join(" ") if options
     end
 
     def rails_path(*paths)
