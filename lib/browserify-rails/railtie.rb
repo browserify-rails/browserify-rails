@@ -2,6 +2,9 @@ module BrowserifyRails
   class Railtie < Rails::Engine
     config.browserify_rails = ActiveSupport::OrderedOptions.new
 
+    # Always browserify every file
+    config.browserify_rails.force = false
+
     # Which paths should be browserified?
     config.browserify_rails.paths = [lambda { |p| p.start_with?(Rails.root.join("app").to_s) },
                                      lambda { |p| p.start_with?(Rails.root.join("node_modules").to_s) }]

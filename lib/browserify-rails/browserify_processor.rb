@@ -53,7 +53,7 @@ module BrowserifyRails
     end
 
     def should_browserify?
-      in_path? && !browserified? && commonjs_module?
+      config.force || (in_path? && !browserified? && commonjs_module?)
     end
 
     # Is this file in any of the configured paths?
