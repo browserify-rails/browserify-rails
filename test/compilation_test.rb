@@ -150,6 +150,12 @@ class BrowserifyTest < ActionController::IntegrationTest
     assert_equal fixture("browserified.out.js"), @response.body.strip
   end
 
+  test "skip files that should not be browserified" do
+    get "/assets/plain.js"
+
+    assert_equal fixture("plain.js"), @response.body.strip
+  end
+
   test "uses config/browserify.yml to mark a module as globally available via --require" do
     expected_output = fixture("main.out.js")
 
