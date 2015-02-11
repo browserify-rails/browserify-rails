@@ -107,6 +107,11 @@ class My::Application < Rails::Application
   # The default is `false`
   config.browserify_rails.evaluate_node_modules = true
 
+  # Force browserify on every found JavaScript asset
+  #
+  # The default is `false`
+  config.browserify_rails.force = true
+
   # Command line options used when running browserify
   #
   # can be provided as an array:

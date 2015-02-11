@@ -12,6 +12,9 @@ class BrowserifyTest < ActionController::IntegrationTest
   setup do
     Rails.application.assets.cache = nil
 
+    # Reset config on each run
+    Dummy::Application.config.browserify_rails.force = false
+
     cache_file = File.join(Rails.root, "tmp/browserify-rails/browserifyinc-cache.json")
     File.delete(cache_file) if File.exists?(cache_file)
 
@@ -148,6 +151,19 @@ class BrowserifyTest < ActionController::IntegrationTest
     get "/assets/browserified.js"
 
     assert_equal fixture("browserified.out.js"), @response.body.strip
+  end
+
+  test "skip files that should not be browserified" do
+    get "/assets/plain.js"
+
+    assert_equal fixture("plain.js"), @response.body.strip
+  end
+
+  test "browserify even plain files if force == true" do
+    Dummy::Application.config.browserify_rails.force = true
+    get "/assets/plain.js"
+
+    assert_equal fixture("plain.out.js"), @response.body.strip
   end
 
   test "uses config/browserify.yml to mark a module as globally available via --require" do
