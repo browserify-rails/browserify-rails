@@ -158,6 +158,12 @@ To make browserify-rails work inside an isolated engine, add the engine app dire
 config.browserify_rails.paths << lambda { |p| p.start_with?(Engine.root.join("app").to_s) }
 ```
 
+If you wish to put the node_modules directory within the engine, you have some control over it with:
+
+```ruby
+config.browserify_rails.node_bin = "some/directory"
+```
+
 ## Support for rails asset directories as non-relative module sources
 
 In the Rails asset pipeline, it is common to have files in
