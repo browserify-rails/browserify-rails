@@ -9,6 +9,8 @@ module BrowserifyRails
     config.browserify_rails.paths = [lambda { |p| p.start_with?(Rails.root.join("app").to_s) },
                                      lambda { |p| p.start_with?(Rails.root.join("node_modules").to_s) }]
 
+    config.browserify_rails.node_bin = "node_modules/.bin/"
+
     # Should node_modules be evaluated assets before run_browserify
     config.browserify_rails.evaluate_node_modules = false
 
