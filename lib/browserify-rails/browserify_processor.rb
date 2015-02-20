@@ -4,11 +4,6 @@ require "tempfile"
 
 module BrowserifyRails
   class BrowserifyProcessor < Tilt::Template
-    NODE_BIN = "node_modules/.bin/"
-
-    BROWSERIFY_CMD    = File.join(NODE_BIN, "browserify").freeze
-    BROWSERIFYINC_CMD = File.join(NODE_BIN, "browserifyinc").freeze
-
     TMP_PATH = File.join("tmp/browserify-rails").freeze
 
     def prepare
@@ -34,6 +29,14 @@ module BrowserifyRails
       Rails.application.config.browserify_rails
     end
 
+    def browserfy_cmd
+      @browserfy_cmd ||= File.join(config.node_bin, "browserify").freeze
+    end
+
+    def browserfyinc_cmd
+      @browserfyinc_cmd ||= File.join(config.node_bin, "browserifyinc").freeze
+    end
+
     def ensure_tmp_dir_exists!
       FileUtils.mkdir_p(rails_path(TMP_PATH))
     end
@@ -42,13 +45,13 @@ module BrowserifyRails
       error = ->(cmd) { "Unable to run #{cmd}. Ensure you have installed it with npm." }
 
       # Browserify has to be installed in any case
-      if !File.exists?(rails_path(BROWSERIFY_CMD))
-        raise BrowserifyRails::BrowserifyError.new(error.call(BROWSERIFY_CMD))
+      if !File.exists?(rails_path(browserfy_cmd))
+        raise BrowserifyRails::BrowserifyError.new(error.call(browserfy_cmd))
       end
 
       # If the user wants to use browserifyinc, we need to ensure it's there too
-      if config.use_browserifyinc && !File.exists?(rails_path(BROWSERIFYINC_CMD))
-        raise BrowserifyRails::BrowserifyError.new(error.call(BROWSERIFYINC_CMD))
+      if config.use_browserifyinc && !File.exists?(rails_path(browserfyinc_cmd))
+        raise BrowserifyRails::BrowserifyError.new(error.call(browserfyinc_cmd))
       end
     end
 
@@ -170,7 +173,7 @@ module BrowserifyRails
     end
 
     def browserify_command(force=nil)
-      rails_path(uses_browserifyinc(force) ? BROWSERIFYINC_CMD : BROWSERIFY_CMD)
+      rails_path(uses_browserifyinc(force) ? browserfyinc_cmd : browserfy_cmd)
     end
 
     def options
