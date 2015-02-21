@@ -4,8 +4,6 @@ require "tempfile"
 
 module BrowserifyRails
   class BrowserifyProcessor < Tilt::Template
-    TMP_PATH = File.join("tmp/browserify-rails").freeze
-
     def prepare
       ensure_tmp_dir_exists!
       ensure_commands_exist!
@@ -29,6 +27,10 @@ module BrowserifyRails
       Rails.application.config.browserify_rails
     end
 
+    def tmp_path
+      @tmp_path ||= Rails.root.join("tmp", "browserify-rails").freeze
+    end
+
     def browserfy_cmd
       @browserfy_cmd ||= File.join(config.node_bin, "browserify").freeze
     end
@@ -38,7 +40,7 @@ module BrowserifyRails
     end
 
     def ensure_tmp_dir_exists!
-      FileUtils.mkdir_p(rails_path(TMP_PATH))
+      FileUtils.mkdir_p(rails_path(tmp_path))
     end
 
     def ensure_commands_exist!
@@ -129,13 +131,13 @@ module BrowserifyRails
       # Browserifyinc uses a special cache file. We set up the path for it if
       # we're going to use browserifyinc.
       if uses_browserifyinc(force_browserifyinc)
-        cache_file_path = rails_path(TMP_PATH, "browserifyinc-cache.json")
+        cache_file_path = rails_path(tmp_path, "browserifyinc-cache.json")
         command_options << " --cachefile=#{cache_file_path.inspect}"
       end
 
       # Create a temporary file for the output. Such file is necessary when
       # using browserifyinc, but we use it in all instances for consistency
-      output_file = Tempfile.new("output", rails_path(TMP_PATH))
+      output_file = Tempfile.new("output", rails_path(tmp_path))
       command_options << " -o #{output_file.path.inspect}"
 
       # Compose the full command (using browserify or browserifyinc as necessary)
