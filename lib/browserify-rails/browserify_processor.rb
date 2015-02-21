@@ -1,6 +1,7 @@
 require "open3"
 require "fileutils"
 require "tempfile"
+require_relative "./cache_file"
 
 module BrowserifyRails
   class BrowserifyProcessor < Tilt::Template
@@ -21,14 +22,18 @@ module BrowserifyRails
       run_browserify(context.logical_path)
     end
 
+    def reset_cache
+      cache_file.reset_cache
+    end
+
   private
 
     def config
       Rails.application.config.browserify_rails
     end
 
-    def tmp_path
-      @tmp_path ||= Rails.root.join("tmp", "browserify-rails").freeze
+    def cache_file
+      @cache_file ||= CacheFile.new(Rails.root)
     end
 
     def browserfy_cmd
@@ -40,7 +45,7 @@ module BrowserifyRails
     end
 
     def ensure_tmp_dir_exists!
-      FileUtils.mkdir_p(rails_path(tmp_path))
+      FileUtils.mkdir_p(rails_path(cache_file.directory))
     end
 
     def ensure_commands_exist!
@@ -131,13 +136,12 @@ module BrowserifyRails
       # Browserifyinc uses a special cache file. We set up the path for it if
       # we're going to use browserifyinc.
       if uses_browserifyinc(force_browserifyinc)
-        cache_file_path = rails_path(tmp_path, "browserifyinc-cache.json")
-        command_options << " --cachefile=#{cache_file_path.inspect}"
+        command_options << " --cachefile=#{cache_file.path.inspect}"
       end
 
       # Create a temporary file for the output. Such file is necessary when
       # using browserifyinc, but we use it in all instances for consistency
-      output_file = Tempfile.new("output", rails_path(tmp_path))
+      output_file = Tempfile.new("output", rails_path(cache_file.directory))
       command_options << " -o #{output_file.path.inspect}"
 
       # Compose the full command (using browserify or browserifyinc as necessary)

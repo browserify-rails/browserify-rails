@@ -4,6 +4,7 @@ class BrowserifyProcessorTest < ActiveSupport::TestCase
   setup do
     @empty_module = fixture("empty_module.js")
     @processor = BrowserifyRails::BrowserifyProcessor.new { |p| @empty_module }
+    @processor.reset_cache
   end
 
   test "should run command without options if none provided" do

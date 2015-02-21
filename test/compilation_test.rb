@@ -30,6 +30,10 @@ class BrowserifyTest < ActionController::IntegrationTest
     copy_example_file "some_folder/answer.js.example"
     copy_example_file "browserified.js.example"
     copy_example_file "index.js.example", "node_modules/node-test-package"
+
+    # clear cache file between runs
+    processor = BrowserifyRails::BrowserifyProcessor.new { |p| @empty_module }
+    processor.reset_cache
   end
 
   test "asset pipeline should serve application.js" do
