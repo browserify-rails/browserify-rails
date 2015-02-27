@@ -26,3 +26,4 @@ test/dummy/app/assets/javascripts/*.js
 test/dummy/app/assets/javascripts/**/*.js
 test/dummy/app/assets/javascripts/**/*.js.coffee
 /.ruby-*
+vendor/*
