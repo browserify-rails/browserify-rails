@@ -31,12 +31,12 @@ module BrowserifyRails
       @tmp_path ||= Rails.root.join("tmp", "browserify-rails").freeze
     end
 
-    def browserfy_cmd
-      @browserfy_cmd ||= File.join(config.node_bin, "browserify").freeze
+    def browserify_cmd
+      @browserify_cmd ||= File.join(config.node_bin, "browserify").freeze
     end
 
-    def browserfyinc_cmd
-      @browserfyinc_cmd ||= File.join(config.node_bin, "browserifyinc").freeze
+    def browserifyinc_cmd
+      @browserifyinc_cmd ||= File.join(config.node_bin, "browserifyinc").freeze
     end
 
     def ensure_tmp_dir_exists!
@@ -47,13 +47,13 @@ module BrowserifyRails
       error = ->(cmd) { "Unable to run #{cmd}. Ensure you have installed it with npm." }
 
       # Browserify has to be installed in any case
-      if !File.exists?(rails_path(browserfy_cmd))
-        raise BrowserifyRails::BrowserifyError.new(error.call(browserfy_cmd))
+      if !File.exists?(rails_path(browserify_cmd))
+        raise BrowserifyRails::BrowserifyError.new(error.call(browserify_cmd))
       end
 
       # If the user wants to use browserifyinc, we need to ensure it's there too
-      if config.use_browserifyinc && !File.exists?(rails_path(browserfyinc_cmd))
-        raise BrowserifyRails::BrowserifyError.new(error.call(browserfyinc_cmd))
+      if config.use_browserifyinc && !File.exists?(rails_path(browserifyinc_cmd))
+        raise BrowserifyRails::BrowserifyError.new(error.call(browserifyinc_cmd))
       end
     end
 
@@ -175,7 +175,7 @@ module BrowserifyRails
     end
 
     def browserify_command(force=nil)
-      rails_path(uses_browserifyinc(force) ? browserfyinc_cmd : browserfy_cmd)
+      rails_path(uses_browserifyinc(force) ? browserifyinc_cmd : browserify_cmd)
     end
 
     def options
