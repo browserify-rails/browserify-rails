@@ -28,7 +28,7 @@ module BrowserifyRails
     end
 
     def tmp_path
-      @tmp_path ||= Rails.root.join("tmp", "browserify-rails").freeze
+      @tmp_path ||= Rails.root.join("tmp", "cache", "browserify-rails").freeze
     end
 
     def browserify_cmd
