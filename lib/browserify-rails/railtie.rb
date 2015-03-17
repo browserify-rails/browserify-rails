@@ -15,7 +15,7 @@ module BrowserifyRails
     config.browserify_rails.evaluate_node_modules = false
 
     # Environments to generate source maps in
-    config.browserify_rails.source_map_environments = ["development"]
+    config.browserify_rails.source_map_environments = []
 
     # Use browserifyinc instead of browserify
     config.browserify_rails.use_browserifyinc = true

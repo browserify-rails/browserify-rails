@@ -99,8 +99,8 @@ class My::Application < Rails::Application
 
   # Environments, in which to generate source maps
   #
-  # The default is `["development"]`.
-  config.browserify_rails.source_map_environments << "production"
+  # The default is none
+  config.browserify_rails.source_map_environments << "development"
 
   # Should the node_modules directory be evaluated for changes on page load
   #
