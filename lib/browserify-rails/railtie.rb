@@ -18,7 +18,9 @@ module BrowserifyRails
     config.browserify_rails.source_map_environments = []
 
     # Use browserifyinc instead of browserify
-    config.browserify_rails.use_browserifyinc = true
+    # TODO figure out how to handle module paths being in output
+    # until then, disable in staging and production
+    config.browserify_rails.use_browserifyinc = !["staging", "production"].include?(Rails.env)
 
     initializer :setup_browserify do |app|
       # Load granular configuration
