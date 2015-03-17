@@ -110,6 +110,21 @@ module BrowserifyRails
       end
     end
 
+    # Environtment to run browserify in:
+    #
+    # NODE_PATH https://nodejs.org/api/all.html#all_loading_from_the_global_folders
+    # but basically allows one to have multiple locations for non-relative requires
+    # to be resolved to.
+    #
+    # NODE_ENV is set to the Rails.env. This is used by some modules to determine
+    # how to build. Example: https://facebook.github.io/react/downloads.html#npm
+    def env
+      {
+        "NODE_PATH" => asset_paths,
+        "NODE_ENV"  => Rails.env
+      }
+    end
+
     # Run the requested version of browserify (browserify or browserifyinc)
     # based on configuration or the use_browserifyinc parameter if present.
     #
@@ -142,7 +157,6 @@ module BrowserifyRails
 
       # Compose the full command (using browserify or browserifyinc as necessary)
       command = "#{browserify_command(force_browserifyinc)} #{command_options} -"
-      env = { "NODE_PATH" => asset_paths }
 
       # The directory the command will be executed from
       base_directory = File.dirname(file)

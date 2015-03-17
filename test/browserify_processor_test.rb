@@ -40,6 +40,18 @@ class BrowserifyProcessorTest < ActiveSupport::TestCase
     assert_equal "-d -i test4.js", @processor.send(:options)
   end
 
+  test "env should have NODE_ENV set" do
+    assert_equal Rails.env, @processor.send(:env)["NODE_ENV"]
+  end
+
+  test "env should have NODE_PATH set to Rails.application.config.assets.paths" do
+    node_env = @processor.send(:env)["NODE_PATH"]
+
+    Rails.application.config.assets.paths.each do |path|
+      assert_equal true, node_env.include?(path)
+    end
+  end
+
   def stub_engine_config(key, value)
     @processor.send(:config).stubs(key).returns(value)
   end
