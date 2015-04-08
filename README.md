@@ -120,6 +120,11 @@ class My::Application < Rails::Application
 
   # or as a string:
   config.browserify_rails.commandline_options = "-t browserify-shim --fast"
+
+  # Define NODE_ENV to be used with envify
+  #
+  # defaults to Rails.env
+  config.browserify_rails.node_env = "production"
 ```
 
 ### browserify-incremental

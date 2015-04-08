@@ -121,7 +121,7 @@ module BrowserifyRails
     def env
       {
         "NODE_PATH" => asset_paths,
-        "NODE_ENV"  => Rails.env
+        "NODE_ENV"  => config.node_env || Rails.env
       }
     end
 

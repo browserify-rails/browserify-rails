@@ -40,7 +40,13 @@ class BrowserifyProcessorTest < ActiveSupport::TestCase
     assert_equal "-d -i test4.js", @processor.send(:options)
   end
 
-  test "env should have NODE_ENV set" do
+  test "env should have NODE_ENV set to Rails.application.config.browserify_rails.node_env" do
+    Rails.application.config.browserify_rails.node_env = "staging"
+    assert_equal "staging", @processor.send(:env)["NODE_ENV"]
+  end
+
+  test "env should have NODE_ENV default to Rails.env" do
+    Rails.application.config.browserify_rails.node_env = nil
     assert_equal Rails.env, @processor.send(:env)["NODE_ENV"]
   end
 
