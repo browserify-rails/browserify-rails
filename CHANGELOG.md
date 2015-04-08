@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [0.8.3] - 2015-03-17
+- forgot to update CHANGELOG
+
+## [0.8.2] - 2015-03-17
+- allow setting NODE_ENV via configuration
+
 ## [0.8.1] - 2015-03-17
 ### Changed
 - disable browserify-incremental in production and staging environments
