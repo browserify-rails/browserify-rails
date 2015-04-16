@@ -25,7 +25,7 @@ Create `package.json` in your Rails root:
 ```js
 {
   "name": "something",
-  "devDependencies" : {
+  "dependencies" : {
     "browserify": "~> 6.3",
     "browserify-incremental": "^1.4.0"
   },
