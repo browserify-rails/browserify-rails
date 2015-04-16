@@ -61,7 +61,7 @@ Add `coffeeify` as a dependency within `package.json`:
 ```js
 {
   // ...
-  "devDependencies" : {
+  "dependencies" : {
     // ...
     "coffeeify": "~> 0.6"
   }
