@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [0.8.4] - 2015-04-16
+- make compatible with Rails 4.x and add missing testing gem
+
 ## [0.8.3] - 2015-03-17
 - forgot to update CHANGELOG
 
