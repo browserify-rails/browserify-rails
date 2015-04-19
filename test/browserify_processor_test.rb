@@ -33,6 +33,11 @@ class BrowserifyProcessorTest < ActiveSupport::TestCase
     assert_equal "-d -i test3.js", @processor.send(:options)
   end
 
+  test "should allow command line options to be a function" do
+    stub_engine_config :commandline_options, -> file { ["-d", "-i #{file}.js"] }
+    assert_equal "-d -i foo.js", @processor.send(:options, "foo")
+  end
+
   test "should add -d option if current env is in source_maps_env list" do
     stub_engine_config :commandline_options, ["-i test4.js"]
     stub_engine_config :source_map_environments, [Rails.env]
