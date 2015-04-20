@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [0.9.1] - 2015-04-20
+- options can be set to a proc
+
 ## [0.9.0] - 2015-04-16
 - bumped a more significant version due to potential issues with Rails 4.x compatibility
 
