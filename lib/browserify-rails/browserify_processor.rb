@@ -120,7 +120,6 @@ module BrowserifyRails
     # how to build. Example: https://facebook.github.io/react/downloads.html#npm
     def env
       {
-        "NODE_PATH" => asset_paths,
         "NODE_ENV"  => config.node_env || Rails.env
       }
     end
