@@ -1,5 +1,7 @@
+require 'yaml'
+
 module BrowserifyRails
-  class Railtie < Rails::Engine
+  class Railtie < ::Rails::Engine
     config.browserify_rails = ActiveSupport::OrderedOptions.new
 
     # Always browserify every file
