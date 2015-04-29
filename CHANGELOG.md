@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [0.9.3] - 2015-04-28
+- update dependency versions to be more open (sprockets >= 2.2, rails >= 3.2)
+
+## [0.9.2] - 2015-04-29
+- not released (yanked)
+
 ## [0.9.1] - 2015-04-20
 - options can be set to a proc
 

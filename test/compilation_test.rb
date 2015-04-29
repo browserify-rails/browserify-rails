@@ -1,6 +1,6 @@
-require "test_helper"
+require 'test_helper'
 
-class BrowserifyTest < ActionController::IntegrationTest
+class BrowserifyTest < ActionDispatch::IntegrationTest
   def copy_example_file(filename, path = nil)
     path ||= "app/assets/javascripts"
     example_file = File.join(Rails.root, path, filename)
@@ -9,11 +9,21 @@ class BrowserifyTest < ActionController::IntegrationTest
     FileUtils.cp(example_file, new_file)
   end
 
+  def reset_cache
+    # this is ugly -- would be great to find out if there is another way to handle this
+    begin
+      Rails.cache.clear
+    rescue Exception
+    end
+    Rails.configuration.assets.clear_cache!
+  end
+
   setup do
-    Rails.application.assets.cache = nil
+    reset_cache
 
     # Reset config on each run
-    Dummy::Application.config.browserify_rails.force = false
+    Rails.application.config.browserify_rails.use_browserifyinc = true
+    Rails.application.config.browserify_rails.force = false
 
     cache_file = File.join(Rails.root, "tmp/cache/browserify-rails/browserifyinc-cache.json")
     File.delete(cache_file) if File.exists?(cache_file)
@@ -51,7 +61,7 @@ class BrowserifyTest < ActionController::IntegrationTest
   end
 
   test "asset pipeline should regenerate application.js when node_modules changes" do
-    Dummy::Application.config.browserify_rails.evaluate_node_modules = true
+    Rails.application.config.browserify_rails.evaluate_node_modules = true
     expected_output = fixture("application.out.js")
 
     get "/assets/application.js"
@@ -123,6 +133,7 @@ class BrowserifyTest < ActionController::IntegrationTest
   end
 
   test "browserifies coffee files after they have been compiled to JS" do
+    Rails.application.config.browserify_rails.use_browserifyinc = false
     expected_output = fixture("mocha.js")
 
     get "/assets/mocha.js"
@@ -132,6 +143,8 @@ class BrowserifyTest < ActionController::IntegrationTest
   end
 
   test "browserifies files with coffee requires" do
+    Rails.application.config.browserify_rails.use_browserifyinc = false
+
     get "/assets/coffee.js"
 
     assert_no_match /BrowserifyRails::BrowserifyError/, @response.body
@@ -160,7 +173,7 @@ class BrowserifyTest < ActionController::IntegrationTest
   end
 
   test "browserify even plain files if force == true" do
-    Dummy::Application.config.browserify_rails.force = true
+    Rails.application.config.browserify_rails.force = true
     get "/assets/plain.js"
 
     assert_equal fixture("plain.out.js"), @response.body.strip

@@ -1,9 +1,10 @@
 require "open3"
 require "fileutils"
 require "tempfile"
+require 'tilt'
 
 module BrowserifyRails
-  class BrowserifyProcessor < Tilt::Template
+  class BrowserifyProcessor < ::Tilt::Template
     def prepare
       ensure_tmp_dir_exists!
       ensure_commands_exist!
@@ -200,7 +201,7 @@ module BrowserifyRails
       end
     end
 
-    def options(file = file)
+    def options(file = nil)
       options = []
 
       options.push("-d") if config.source_map_environments.include?(Rails.env)
