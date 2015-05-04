@@ -2,8 +2,11 @@ require 'test_helper'
 
 class BrowserifyProcessorTest < ActiveSupport::TestCase
   setup do
-    @empty_module = fixture("empty_module.js")
-    @processor = BrowserifyRails::BrowserifyProcessor.new { |p| @empty_module }
+    template = "empty_module.js"
+    @empty_module = fixture(template)
+    @processor = BrowserifyRails::BrowserifyProcessor.new(template) do |p|
+      @empty_module
+    end
   end
 
   test "should run command without options if none provided" do
@@ -34,8 +37,8 @@ class BrowserifyProcessorTest < ActiveSupport::TestCase
   end
 
   test "should allow command line options to be a function" do
-    stub_engine_config :commandline_options, -> file { ["-d", "-i #{file}.js"] }
-    assert_equal "-d -i foo.js", @processor.send(:options, "foo")
+    stub_engine_config :commandline_options, -> file { ["-d", "-i #{file}"] }
+    assert_equal "-d -i empty_module.js", @processor.send(:options)
   end
 
   test "should add -d option if current env is in source_maps_env list" do

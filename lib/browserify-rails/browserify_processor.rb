@@ -192,7 +192,7 @@ module BrowserifyRails
       rails_path(uses_browserifyinc(force) ? browserifyinc_cmd : browserify_cmd)
     end
 
-    def options_to_array(options, file)
+    def options_to_array(options)
       if options.respond_to? :call
         options.call(file)
       else
@@ -200,12 +200,12 @@ module BrowserifyRails
       end
     end
 
-    def options(file = file)
+    def options
       options = []
 
       options.push("-d") if config.source_map_environments.include?(Rails.env)
 
-      options += options_to_array(config.commandline_options, file) if config.commandline_options.present?
+      options += options_to_array(config.commandline_options) if config.commandline_options.present?
 
       options.uniq.join(" ")
     end
