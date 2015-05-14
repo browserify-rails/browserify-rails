@@ -6,6 +6,7 @@
     "browserify": "~> 6.2",
     "browserify-incremental": "^1.4.0",
     "coffeeify": "~> 0.6",
+    "exorcist": "~> 0.3.0",
     "node-test-package": "~> 0.0.2"
   },
   "license": "MIT",
