@@ -1,7 +1,6 @@
 # browserify-rails
 
 [![Join the chat at https://gitter.im/browserify-rails/browserify-rails](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/browserify-rails/browserify-rails?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/browserify-rails/browserify-rails.svg?branch=master)](https://travis-ci.org/browserify-rails/browserify-rails)
 [![Gem Version](https://badge.fury.io/rb/browserify-rails.svg)](http://badge.fury.io/rb/browserify-rails)
 
 This library adds CommonJS module support to Sprockets (via Browserify).

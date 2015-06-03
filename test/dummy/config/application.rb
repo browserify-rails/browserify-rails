@@ -42,5 +42,7 @@ module Dummy
 
     # Add CoffeeScript support
     config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.coffee\""
+
+    config.secret_key_base = 'blistering_barnacles'
   end
 end
