@@ -1,6 +1,7 @@
 require "open3"
 require "fileutils"
 require "tempfile"
+require "shellwords"
 
 module BrowserifyRails
   class BrowserifyProcessor < Tilt::Template
@@ -147,7 +148,7 @@ module BrowserifyRails
       # we're going to use browserifyinc.
       if uses_browserifyinc(force_browserifyinc)
         cache_file_path = rails_path(tmp_path, "browserifyinc-cache.json")
-        command_options << " --cachefile=#{cache_file_path.inspect}"
+        command_options << " --cachefile=#{Shellwords.escape(cache_file_path.inspect)}"
       end
 
       # Create a temporary file for the output. Such file is necessary when
@@ -156,7 +157,7 @@ module BrowserifyRails
       command_options << " -o #{output_file.path.inspect}"
 
       # Compose the full command (using browserify or browserifyinc as necessary)
-      command = "#{browserify_command(force_browserifyinc)} #{command_options} -"
+      command = "#{Shellwords.escape(browserify_command(force_browserifyinc))} #{command_options} -"
 
       # The directory the command will be executed from
       base_directory = File.dirname(file)
