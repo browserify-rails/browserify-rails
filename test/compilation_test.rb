@@ -54,24 +54,28 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     Dummy::Application.config.browserify_rails.evaluate_node_modules = true
     expected_output = fixture("application.out.js")
 
-    get "/assets/application.js"
+    begin
+      get "/assets/application.js"
 
-    assert_response :success
-    assert_equal expected_output, @response.body.strip
+      assert_response :success
+      assert_equal expected_output, @response.body.strip
 
-    # Ensure that Sprockets can detect the change to the file modification time
-    sleep 1
+      # Ensure that Sprockets can detect the change to the file modification time
+      sleep 1
 
-    File.open(File.join(Rails.root, "node_modules/node-test-package/index.js"), "w+") do |f|
-      f.puts 'module.exports = console.log("goodbye friend");'
+      File.open(File.join(Rails.root, "node_modules/node-test-package/index.js"), "w+") do |f|
+        f.puts 'module.exports = console.log("goodbye friend");'
+      end
+
+      expected_output = fixture("application.node_test_package_changed.out.js")
+
+      get "/assets/application.js"
+
+      assert_response :success
+      assert_equal expected_output, @response.body.strip
+    ensure
+      Dummy::Application.config.browserify_rails.evaluate_node_modules = false
     end
-
-    expected_output = fixture("application.node_test_package_changed.out.js")
-
-    get "/assets/application.js"
-
-    assert_response :success
-    assert_equal expected_output, @response.body.strip
   end
 
   test "asset pipeline should regenerate application.js when foo.js changes" do
@@ -161,9 +165,14 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
 
   test "browserify even plain files if force == true" do
     Dummy::Application.config.browserify_rails.force = true
+
     get "/assets/plain.js"
 
-    assert_equal fixture("plain.out.js"), @response.body.strip
+    begin
+      assert_equal fixture("plain.out.js"), @response.body.strip
+    ensure
+      Dummy::Application.config.browserify_rails.force = false
+    end
   end
 
   test "uses config/browserify.yml to mark a module as globally available via --require" do
