@@ -25,5 +25,6 @@ tmp
 test/dummy/app/assets/javascripts/*.js
 test/dummy/app/assets/javascripts/**/*.js
 test/dummy/app/assets/javascripts/**/*.js.coffee
+test/dummy/app/assets/javascripts/**/*.map
 /.ruby-*
 vendor/*
