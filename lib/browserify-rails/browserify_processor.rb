@@ -1,3 +1,4 @@
+require "tilt"
 require "open3"
 require "fileutils"
 require "tempfile"
@@ -5,6 +6,13 @@ require "shellwords"
 
 module BrowserifyRails
   class BrowserifyProcessor < Tilt::Template
+    attr_accessor :config
+
+    def initialize(template)
+      self.config = Rails.application.config.browserify_rails
+      super(template)
+    end
+
     def prepare
       ensure_tmp_dir_exists!
       ensure_commands_exist!
@@ -23,10 +31,6 @@ module BrowserifyRails
     end
 
   private
-
-    def config
-      Rails.application.config.browserify_rails
-    end
 
     def tmp_path
       @tmp_path ||= Rails.root.join("tmp", "cache", "browserify-rails").freeze
