@@ -40,6 +40,10 @@ module BrowserifyRails
       @browserifyinc_cmd ||= File.join(config.node_bin, "browserifyinc").freeze
     end
 
+    def exorcist_cmd
+      @exorcist_cmd ||= rails_path(File.join(config.node_bin, "exorcist").freeze)
+    end
+
     def ensure_tmp_dir_exists!
       FileUtils.mkdir_p(rails_path(tmp_path))
     end
@@ -120,10 +124,10 @@ module BrowserifyRails
     # NODE_ENV is set to the Rails.env. This is used by some modules to determine
     # how to build. Example: https://facebook.github.io/react/downloads.html#npm
     def env
-      {
-        "NODE_PATH" => asset_paths,
-        "NODE_ENV"  => config.node_env || Rails.env
-      }
+      env_hash = {}
+      env_hash["NODE_PATH"] = asset_paths unless uses_exorcist
+      env_hash["NODE_ENV"] = config.node_env || Rails.env
+      env_hash
     end
 
     # Run the requested version of browserify (browserify or browserifyinc)
@@ -169,6 +173,26 @@ module BrowserifyRails
         raise BrowserifyRails::BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
       end
 
+      # If using exorcist, pipe output from browserify command into exorcist
+      if uses_exorcist && logical_path
+        if stdout.present?
+          bfy_output = stdout
+        else
+          bfy_output = output_file.read
+        end
+        sourcemap_output_file = "#{File.dirname(file)}/#{logical_path.split('/')[-1]}.map"
+        exorcist_command = "#{exorcist_cmd} #{sourcemap_output_file} #{exorcist_options}"
+        Logger::log "Exorcist: #{exorcist_command}"
+        exorcist_stdout, exorcist_stderr, exorcist_status = Open3.capture3(env,
+                                                                           exorcist_command,
+                                                                           stdin_data: bfy_output,
+                                                                           chdir: base_directory)
+
+        if !exorcist_status.success?
+          raise BrowserifyRails::BrowserifyError.new("Error while running `#{exorcist_command}`:\n\n#{exorcist_stderr}")
+        end
+      end
+
       # Read the output that was stored in the temp file
       output = output_file.read
 
@@ -178,7 +202,10 @@ module BrowserifyRails
 
       # Some command flags (such as --list) make the output go to stdout,
       # ignoring -o. If this happens, we give out stdout instead.
-      if stdout.present?
+      # If we're using exorcist, then we directly use its output
+      if uses_exorcist && exorcist_stdout.present?
+        exorcist_stdout
+      elsif stdout.present?
         stdout
       else
         output
@@ -187,6 +214,10 @@ module BrowserifyRails
 
     def uses_browserifyinc(force=nil)
       !force.nil? ? force : config.use_browserifyinc
+    end
+
+    def uses_exorcist
+      config.use_exorcist
     end
 
     def browserify_command(force=nil)
@@ -209,6 +240,13 @@ module BrowserifyRails
       options += options_to_array(config.commandline_options) if config.commandline_options.present?
 
       options.uniq.join(" ")
+    end
+
+    def exorcist_options
+      exorcist_options = []
+      exorcist_base_path = config.exorcist_base_path || config.root
+      exorcist_options.push("-b #{exorcist_base_path}")
+      exorcist_options.join(" ")
     end
 
     def get_granular_config(logical_path)
