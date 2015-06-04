@@ -1,6 +1,6 @@
-require "bundler/gem_tasks"
-
+require 'bundler/gem_tasks'
 require 'rake/testtask'
+require 'shellwords'
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
@@ -15,7 +15,7 @@ namespace :dummy do
     task :install do
       dummy_dir = Bundler.root.join 'test/dummy'
 
-      sh "cd #{dummy_dir} && npm install" do |ok, res|
+      sh "cd #{Shellwords.shellescape(dummy_dir)} && npm install" do |ok, res|
         fail "Error running npm install in #{dummy_dir}." unless ok
       end
     end
