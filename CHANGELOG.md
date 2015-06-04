@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [1.0.0] - 2015-06-03
+- fix bugs when path has a space in it
+
 ## [1.0.0b] - 2015-06-03
 - update dependencies to be compatible with sass-rails and more...
 
