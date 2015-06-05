@@ -248,7 +248,8 @@ module BrowserifyRails
 
     def exorcist_options
       exorcist_options = []
-      exorcist_base_path = config.exorcist_base_path || config.root
+      root_path = config.root || File.expand_path('../..', __FILE__)
+      exorcist_base_path = config.exorcist_base_path || root_path
       exorcist_options.push("-b #{exorcist_base_path}")
       exorcist_options.join(" ")
     end
