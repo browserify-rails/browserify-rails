@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [1.0.1] - 2015-06-08
+- fix bug with exorcist and config.root being unset
+
 ## [1.0.0] - 2015-06-03
 - fix bugs when path has a space in it
 
