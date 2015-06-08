@@ -211,23 +211,23 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # test "generates sourcemap and writes to file if --use-exorcist and default_base_path" do
-  #   Dummy::Application.config.browserify_rails.commandline_options = "-d"
-  #   Dummy::Application.config.browserify_rails.use_exorcist = true
-  #   Dummy::Application.config.browserify_rails.exorcist_base_path = nil
-  #
-  #   begin
-  #     expected_output = fixture("js-with-sourcemap-url.out.js")
-  #
-  #     get "/assets/application.js"
-  #
-  #     assert_response :success
-  #     assert_equal expected_output, @response.body.strip
-  #   ensure
-  #     Dummy::Application.config.browserify_rails.use_exorcist = false
-  #     Dummy::Application.config.browserify_rails.commandline_options = ""
-  #   end
-  # end
+  test "generates sourcemap and writes to file if --use-exorcist and default_base_path" do
+    Dummy::Application.config.browserify_rails.commandline_options = "-d"
+    Dummy::Application.config.browserify_rails.use_exorcist = true
+    Dummy::Application.config.browserify_rails.exorcist_base_path = nil
+
+    begin
+      expected_output = fixture("js-with-sourcemap-url.out.js")
+
+      get "/assets/application.js"
+
+      assert_response :success
+      assert_equal expected_output, @response.body.strip
+    ensure
+      Dummy::Application.config.browserify_rails.use_exorcist = false
+      Dummy::Application.config.browserify_rails.commandline_options = ""
+    end
+  end
 
   test "throws BrowserifyError if something went wrong while executing browserify" do
     File.open(File.join(Rails.root, "app/assets/javascripts/application.js"), "w+") do |f|
