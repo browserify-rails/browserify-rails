@@ -19,7 +19,7 @@ It lets you mix and match  `//= require` directives and `require()` calls for in
 
 Add this line to your application's Gemfile:
 
-    gem "browserify-rails", "~> 0.7"
+    gem "browserify-rails", "~> 1.0.1"
 
 Create `package.json` in your Rails root:
 
