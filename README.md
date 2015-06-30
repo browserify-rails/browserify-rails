@@ -27,8 +27,8 @@ Create `package.json` in your Rails root:
 {
   "name": "something",
   "dependencies" : {
-    "browserify": "~> 6.3",
-    "browserify-incremental": "^1.4.0"
+    "browserify": "~> 10.2.4",
+    "browserify-incremental": "^3.0.1"
   },
   "license": "MIT",
   "engines": {
