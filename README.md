@@ -200,17 +200,11 @@ invalid.
 
 ## Deploying to Heroku
 
-Heroku is a very common target for deploying. You'll have to use a custom
-[buildpack](https://github.com/ddollar/heroku-buildpack-multi) that runs
-`bundle` and `npm install` on the target machine.
+Heroku is a very common target for deploying. You'll have to add custom
+buildpacks that run `bundle` and `npm install` on the target machine.
 
-    $ heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
-
-and add a `.buildpacks` file in your project root containing the strategies
-
-    # .buildpacks
-    https://github.com/heroku/heroku-buildpack-nodejs.git
-    https://github.com/heroku/heroku-buildpack-ruby.git
+    $ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs.git
+    $ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-ruby.git
 
 ## Troubleshooting
 
