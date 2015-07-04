@@ -156,7 +156,7 @@ module BrowserifyRails
       # we're going to use browserifyinc.
       if uses_browserifyinc(force_browserifyinc)
         cache_file_path = rails_path(tmp_path, "browserifyinc-cache.json")
-        command_options << " --cachefile=#{Shellwords.escape(cache_file_path.inspect)}"
+        command_options << " --cachefile=#{Shellwords.escape(cache_file_path)}"
       end
 
       # Create a temporary file for the output. Such file is necessary when
