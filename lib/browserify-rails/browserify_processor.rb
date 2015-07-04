@@ -173,8 +173,6 @@ module BrowserifyRails
       Logger::log "Browserify: #{command}"
       stdout, stderr, status = Open3.capture3(env, command, stdin_data: data, chdir: base_directory)
 
-      puts Dir.entries(rails_path(tmp_path))
-
       if !status.success?
         raise BrowserifyRails::BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
       end
