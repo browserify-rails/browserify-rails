@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [1.1.0] - 2015-07-04
+- fix major performance bug with browserify-incremental cachefile
+- remove specific version in README
+
 ## [1.0.2] - 2015-06-29
 - updates to README for versions
 
