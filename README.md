@@ -97,7 +97,7 @@ class My::Application < Rails::Application
   # By default only files in /app and /node_modules are browserified,
   # vendor stuff is normally not made for browserification and may stop
   # working.
-  config.browserify_rails.paths << /vendor\/assets\/javascripts\/module.js/
+  config.browserify_rails.paths << /vendor\/assets\/javascripts\/module\.js/
 
   # Environments, in which to generate source maps
   #
