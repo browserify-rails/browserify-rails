@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [1.2.0] - 2015-07-19
+- require sprockets > 3.0.2 (see browserify-rails issue 91)
+
 ## [1.1.0] - 2015-07-04
 - fix major performance bug with browserify-incremental cachefile
 - remove specific version in README
