@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "railties", ">= 4.0.0", "< 5.0"
   spec.add_runtime_dependency "sprockets", "> 3.0.2"
-  spec.add_runtime_dependency "tilt", ">= 2.0.1"
+  spec.add_runtime_dependency "tilt", ">= 1.1", "< 3"
 
   spec.add_development_dependency "bundler", ">= 1.3"
   spec.add_development_dependency "rake"
