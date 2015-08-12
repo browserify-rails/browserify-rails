@@ -5,7 +5,7 @@
 
 This library adds CommonJS module support to Sprockets (via Browserify).
 
-It lets you mix and match  `//= require` directives and `require()` calls for including plain javascript files as well as modules.
+It lets you mix and match  `//= require` directives and `require()` calls for including plain javascript files as well as modules. However, it is important to remember that once you are into code that is being browserified you can no longer use sprockets-style require (so no `//= require`). In many cases, it makes sense to put all your sprockets-required code in a separate file or at the very least at the top of your main JavaScript file. Then use `require()` to pull in the CommonJS code.
 
 1. Manage JS modules with `npm`
 2. Serve assets with Sprockets
