@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [1.3.0] - 2015-08-12
+- add tilt >= 2.0.1 as a runtime dependency (overlooked)
+
 ## [1.2.0] - 2015-07-19
 - require sprockets > 3.0.2 (see browserify-rails issue 91)
 
