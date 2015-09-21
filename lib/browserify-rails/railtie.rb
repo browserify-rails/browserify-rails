@@ -24,17 +24,27 @@ module BrowserifyRails
     # until then, disable in staging and production
     config.browserify_rails.use_browserifyinc = !["staging", "production"].include?(Rails.env)
 
-    initializer :setup_browserify do |app|
-      # Load granular configuration
-      filename = File.join(Rails.root, 'config', 'browserify.yml')
-      configuration = YAML::load(File.read(filename)) if File.exist? filename
-      config.browserify_rails.granular = configuration || {}
-
-      app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
+    if config.respond_to?(:assets)
+      config.assets.configure do |env|
+        load_granular_configuration
+        env.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
+      end
+    else
+      initializer :setup_browserify do |app|
+        load_granular_configuration
+        app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
+      end
     end
+
 
     rake_tasks do
       Dir[File.join(File.dirname(__FILE__), "tasks/*.rake")].each { |f| load f }
+    end
+
+    def load_granular_configuration
+      filename = File.join(Rails.root, 'config', 'browserify.yml')
+      configuration = YAML::load(File.read(filename)) if File.exist? filename
+      config.browserify_rails.granular = configuration || {}
     end
   end
 end
