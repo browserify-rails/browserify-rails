@@ -221,6 +221,15 @@ The second method is definitely brute force but if you experience issues,
 it is definitely worth trying before spending too much time debugging
 why something that is browserified appears to not match the sources files.
 
+## Acceptance Test Failures
+
+If you have Sprockets precompile multiple JS files, each of which include
+certain browserified files, your acceptance tests may timeout before some
+of the assets have finished compiling.
+
+To avoid this problem, run `rake assets:precompile` before running your
+acceptance tests.
+
 ## Contributing
 
 Pull requests appreciated. Pull requests will not be rejected based on
