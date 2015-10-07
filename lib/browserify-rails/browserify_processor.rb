@@ -171,7 +171,15 @@ module BrowserifyRails
       base_directory = File.dirname(file)
 
       Logger::log "Browserify: #{command}"
-      stdout, stderr, status = Open3.capture3(env, command, stdin_data: data, chdir: base_directory)
+
+      # If we are on JRuby 1.x, capture3 does not support chdir option
+      stdout, stderr, status = if RUBY_PLATFORM == "java" && JRUBY_VERSION =~ /^1/
+        Dir.chdir(base_directory) {
+          Open3.capture3(env, command, stdin_data: data)
+        }
+      else
+        Open3.capture3(env, command, stdin_data: data, chdir: base_directory)
+      end
 
       if !status.success?
         raise BrowserifyRails::BrowserifyError.new("Error while running `#{command}`:\n\n#{stderr}")
