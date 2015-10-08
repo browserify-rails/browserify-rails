@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [1.5.0] - 2015-10-07
+- add jruby support for file name resolution (thanks to jmagoon)
+- make config.force more flexible by allowing it to be a proc (thanks to rosendi)
+- fix browserify-rails to work with new sprockets 3 interface (thanks to hajpoj)
+- fix broken test with current `npm install` in dummy test app
+
 ## [1.4.0] - 2015-08-12
 - modify tilt allowed version to be ">= 1.1", "< 3" to be compatible with sass-rails
 
