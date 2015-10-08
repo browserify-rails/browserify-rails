@@ -5,7 +5,7 @@ module.exports = function() {
   console.log('library', library);
 };
 
-},{"./a_huge_library":"__RAILS_ROOT__/app/assets/javascripts/a_huge_library.js"}],"__RAILS_ROOT__/app/assets/javascripts/a_huge_library.js":[function(require,module,exports){
+},{"./a_huge_library":"__RAILS_ROOT__/app/assets/javascripts/a_huge_library.js"}],"a_huge_library":[function(require,module,exports){
 // pretend this file is 1 MB
 //
 // app_main.js is going to require() it and browserify.yml is going to tell it to use --require on it
