@@ -67,7 +67,15 @@ module BrowserifyRails
     end
 
     def should_browserify?
-      config.force || (in_path? && !browserified? && commonjs_module?)
+      force_browserify? || (in_path? && !browserified? && commonjs_module?)
+    end
+
+    def force_browserify?
+      if config.force.is_a? Proc
+        config.force.call file
+      else
+        config.force
+      end
     end
 
     # Is this file in any of the configured paths?

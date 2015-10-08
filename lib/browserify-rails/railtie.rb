@@ -4,7 +4,7 @@ module BrowserifyRails
   class Railtie < Rails::Engine
     config.browserify_rails = ActiveSupport::OrderedOptions.new
 
-    # Always browserify every file
+    # Browserify every file if true. Can be a proc.
     config.browserify_rails.force = false
 
     # Which paths should be browserified?

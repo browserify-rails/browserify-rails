@@ -109,10 +109,11 @@ class My::Application < Rails::Application
   # The default is `false`
   config.browserify_rails.evaluate_node_modules = true
 
-  # Force browserify on every found JavaScript asset
+  # Force browserify on every found JavaScript asset if true.
+  # Can be a proc.
   #
   # The default is `false`
-  config.browserify_rails.force = true
+  config.browserify_rails.force = ->(file) { File.extname(file) == ".ts" }
 
   # Command line options used when running browserify
   #
