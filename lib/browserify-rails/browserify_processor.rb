@@ -1,4 +1,3 @@
-require "tilt"
 require "open3"
 require "fileutils"
 require "tempfile"
