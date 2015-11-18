@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [2.0.1] - 2015-11-17
+- remove tilt gem from gemspec and no longer require it in processor
+
 ## [2.0.0] - 2015-11-17
 - remove dependency on tilt gem and use callable sprockets api (thanks to guiceolin)
 
