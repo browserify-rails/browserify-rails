@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [2.0.0] - 2015-11-17
+- remove dependency on tilt gem and use callable sprockets api (thanks to guiceolin)
+
 ## [1.5.0] - 2015-10-07
 - add jruby support for file name resolution (thanks to jmagoon)
 - make config.force more flexible by allowing it to be a proc (thanks to rosendi)
