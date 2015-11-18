@@ -5,29 +5,41 @@ require "tempfile"
 require "shellwords"
 
 module BrowserifyRails
-  class BrowserifyProcessor < Tilt::Template
-    attr_accessor :config
+  class BrowserifyProcessor
+    attr_accessor :config, :data, :file
 
-    def initialize(template)
-      self.config = Rails.application.config.browserify_rails
-      super(template)
+    def self.instance
+      @instance ||= new
     end
 
-    def prepare
+    def self.call(input)
+      instance.call(input)
+    end
+
+    def initialize
+      self.config = Rails.application.config.browserify_rails
+    end
+
+    def call(input)
+      self.data = input[:data]
+      self.file = input[:filename]
+
       ensure_tmp_dir_exists!
       ensure_commands_exist!
-    end
 
-    def evaluate(context, locals, &block)
       # If there's nothing to do, we just return the data we received
       return data unless should_browserify?
 
+      dependencies = Set.new(input[:metadata][:dependencies])
+
       # Signal dependencies to sprockets to ensure we track changes
-      evaluate_dependencies(context.environment.paths).each do |path|
-        context.depend_on(path)
+      evaluate_dependencies(input[:environment].paths).each do |path|
+        resolved =  input[:environment].resolve(path)
+        dependencies << resolved.last.first if resolved
       end
 
-      run_browserify(context.logical_path)
+      new_data = run_browserify(input[:name])
+      { data: new_data, dependencies: dependencies }
     end
 
   private
