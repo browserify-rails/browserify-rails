@@ -33,8 +33,8 @@ module BrowserifyRails
 
       # Signal dependencies to sprockets to ensure we track changes
       evaluate_dependencies(input[:environment].paths).each do |path|
-        resolved =  input[:environment].resolve(path)
-        dependencies << resolved.last.first if resolved
+        resolved = input[:environment].resolve(path)
+        dependencies << "file-digest://#{resolved}" if resolved
       end
 
       new_data = run_browserify(input[:name])
