@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [2.0.2] - 2015-11-23
+- fix bug in dependencies passed to sprockets which broke change detection
+
 ## [2.0.1] - 2015-11-17
 - remove tilt gem from gemspec and no longer require it in processor
 
