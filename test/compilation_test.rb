@@ -25,6 +25,7 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     copy_example_file "coffee.js.coffee.example"
     copy_example_file "node_path_based_require.js.example"
     copy_example_file "main.js.example"
+    copy_example_file "require_in_a_comment.js.example"
     copy_example_file "secondary.js.example"
     copy_example_file "a_huge_library.js.example"
     copy_example_file "some_folder/answer.js.example"
@@ -161,6 +162,12 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     get "/assets/plain.js"
 
     assert_equal fixture("plain.js"), @response.body.strip
+  end
+
+  test "skip files containing the word require in comments" do
+    get "/assets/require_in_a_comment.js"
+
+    assert_equal fixture("require_in_a_comment.js"), @response.body.strip
   end
 
   test "browserify even plain files if force == true" do
