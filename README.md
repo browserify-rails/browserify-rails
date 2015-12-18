@@ -1,5 +1,7 @@
 # browserify-rails
 
+**If you are using react-rails or experience any issues with browiserfy-rails 2.x, please use the 1.5.x versions until 2.x is stabilized. Please see the issues for discussions and feel free to post your experience. The use of react-rails with browserify-rails is a bit of an anti-pattern in terms of going to CommonJS so it may never be supported. Consider using a browserify transform for React support.
+
 [![Join the chat at https://gitter.im/browserify-rails/browserify-rails](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/browserify-rails/browserify-rails?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Gem Version](https://badge.fury.io/rb/browserify-rails.svg)](http://badge.fury.io/rb/browserify-rails)
 
