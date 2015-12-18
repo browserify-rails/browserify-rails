@@ -54,6 +54,21 @@ var foo = require('./foo');
 console.log(foo(12));
 ```
 
+#### Gotchas with `require` and `module.exports`
+
+Do not put `module.exports` or `require()` in JavaScript comments or strings.
+Doing so will certainly cause issues with compilation that are difficult to
+track down.
+
+This happens because browserify-rails works by parsing your JavaScript files for
+these keywords that indicate whether it is a module, or is requiring a module.
+If a file meets one of these criteria, browserify will compile the modules as
+expected.
+
+Because browserify-rails is working within the restraints of Ruby/Sprockets, the
+parsing is done by Ruby and therefore does not know whether it is a JavaScript
+string, comment, or function.
+
 ## CoffeeScript
 
 For CoffeeScript support, make sure to follow the standard rails
