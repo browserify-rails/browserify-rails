@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [2.0.3] - 2015-12-18
+- detection of CommonJS (require(.*)) now more stringent
+- update README about 2.x and react-rails
+
 ## [2.0.2] - 2015-11-23
 - fix bug in dependencies passed to sprockets which broke change detection
 
