@@ -10,7 +10,7 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    Rails.application.assets.cache = nil
+    Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
 
     # Reset config on each run
     Dummy::Application.config.browserify_rails.force = false
@@ -81,6 +81,9 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
 
   test "asset pipeline should regenerate application.js when foo.js changes" do
     expected_output = fixture("application.out.js")
+
+    # get another js file before applciation.js to check that it appropriately clears the cached dependencies
+    get "/assets/main.js"
 
     get "/assets/application.js"
 

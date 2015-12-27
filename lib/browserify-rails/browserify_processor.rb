@@ -34,6 +34,9 @@ module BrowserifyRails
       # Signal dependencies to sprockets to ensure we track changes
       evaluate_dependencies(input[:environment].paths).each do |path|
         resolved = input[:environment].resolve(path)
+        if config.evaluate_node_modules && !resolved
+          resolved = path
+        end
         dependencies << "file-digest://#{resolved}" if resolved
       end
 
@@ -126,6 +129,11 @@ module BrowserifyRails
 
     # @return [<String>] Paths of files, that this file depends on
     def dependencies
+      if (@dependencies_source_file != file)
+        @dependencies = nil
+        @dependencies_source_file = file
+      end
+
       @dependencies ||= begin
         # We forcefully run browserify (avoiding browserifyinc) with the --list
         # option to get a list of files.
