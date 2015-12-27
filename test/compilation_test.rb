@@ -10,7 +10,7 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    Rails.application.assets.cache = nil
+    Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
 
     # Reset config on each run
     Dummy::Application.config.browserify_rails.force = false
