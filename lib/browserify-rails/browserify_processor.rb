@@ -126,6 +126,11 @@ module BrowserifyRails
 
     # @return [<String>] Paths of files, that this file depends on
     def dependencies
+      if (@dependencies_source_file != file)
+        @dependencies = nil
+        @dependencies_source_file = file
+      end
+
       @dependencies ||= begin
         # We forcefully run browserify (avoiding browserifyinc) with the --list
         # option to get a list of files.
