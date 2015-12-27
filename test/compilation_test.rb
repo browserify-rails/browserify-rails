@@ -82,6 +82,9 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
   test "asset pipeline should regenerate application.js when foo.js changes" do
     expected_output = fixture("application.out.js")
 
+    # get another js file before applciation.js to check that it appropriately clears the cached dependencies
+    get "/assets/main.js"
+
     get "/assets/application.js"
 
     assert_response :success
