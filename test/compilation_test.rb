@@ -10,11 +10,12 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
-
     # Reset config on each run
     Dummy::Application.config.browserify_rails.force = false
 
+    # Reset the cache
+    Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
+    BrowserifyRails::BrowserifyProcessor.instance.instance_variable_set(:@dependencies, nil)
     cache_file = File.join(Rails.root, "tmp/cache/browserify-rails/browserifyinc-cache.json")
     File.delete(cache_file) if File.exists?(cache_file)
 
