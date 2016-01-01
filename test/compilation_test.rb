@@ -10,11 +10,12 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
-
     # Reset config on each run
     Dummy::Application.config.browserify_rails.force = false
 
+    # Reset the cache
+    Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
+    BrowserifyRails::BrowserifyProcessor.instance.instance_variable_set(:@dependencies, nil)
     cache_file = File.join(Rails.root, "tmp/cache/browserify-rails/browserifyinc-cache.json")
     File.delete(cache_file) if File.exists?(cache_file)
 
@@ -128,6 +129,34 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal expected_output, @response.body.strip
+  end
+
+  test "asset pipeline should regenerate application.js when the dependencies change and the new required file updates" do
+
+    get "/assets/application.js"
+
+    # Ensure that Sprockets can detect the change to the file modification time
+    sleep 1
+
+    # The dependencies of application.js change
+    File.open(File.join(Rails.root, "app/assets/javascripts/application.js"), "w+") do |f|
+      f.puts "var library = require('./a_huge_library.js');"
+    end
+
+    get "/assets/application.js"
+
+    assert_response :success
+    assert_match "\"THIS IS A HUGE LIBRARY\"", @response.body.strip
+
+    # The new required js file updates
+    File.open(File.join(Rails.root, "app/assets/javascripts/a_huge_library.js"), "w+") do |f|
+      f.puts "module.exports = \"THIS IS A HUGE LIBRARY 2\""
+    end
+
+    get "/assets/application.js"
+
+    assert_response :success
+    assert_match "\"THIS IS A HUGE LIBRARY 2\"", @response.body.strip
   end
 
   test "browserifies coffee files after they have been compiled to JS" do
