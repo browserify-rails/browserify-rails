@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [2.2.0] - 2016-01-01
+- fix another dependency issue impacting cache invalidation (see PR #131)
+
 ## [2.1.0] - 2015-12-26
 - fix some dependency issues (see PR #130)
 
