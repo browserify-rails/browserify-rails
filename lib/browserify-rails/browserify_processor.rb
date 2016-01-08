@@ -40,7 +40,7 @@ module BrowserifyRails
         if config.evaluate_node_modules && !resolved
           resolved = path
         end
-        dependencies << "file-digest://#{resolved}" if resolved
+        dependencies << "file-digest://#{URI.escape resolved}" if resolved
       end
 
       new_data = run_browserify(input[:name])
