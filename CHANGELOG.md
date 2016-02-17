@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [3.0.0] - 2016-02-17
+- upgrade dependency on sprockets to >= 3.5.2
+
 ## [2.2.0] - 2016-01-01
 - fix another dependency issue impacting cache invalidation (see PR #131)
 
