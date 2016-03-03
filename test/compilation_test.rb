@@ -32,6 +32,8 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     copy_example_file "some_folder/answer.js.example"
     copy_example_file "browserified.js.example"
     copy_example_file "index.js.example", "node_modules/node-test-package"
+    copy_example_file "simple_module.js.example"
+    copy_example_file "use_import.js.example"
   end
 
   test "asset pipeline should serve application.js" do
@@ -277,5 +279,20 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     get "/assets/application.js"
 
     assert_match /BrowserifyRails::BrowserifyError/, @response.body
+  end
+
+  test "identifies files that call import function as modules" do
+    Dummy::Application.config.browserify_rails.commandline_options = "-t [ babelify --presets [ es2015 ] ]"
+
+    begin
+      expected_output = fixture("use_import.out.js")
+
+      get "/assets/use_import.js"
+
+      assert_response :success
+      assert_equal expected_output, @response.body.strip
+    ensure
+      Dummy::Application.config.browserify_rails.commandline_options = ""
+    end
   end
 end
