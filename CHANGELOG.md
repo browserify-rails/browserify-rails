@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [3.0.1] - 2016-03-03
+- detect import keyword and process as module if found
+
 ## [3.0.0] - 2016-02-17
 - upgrade dependency on sprockets to >= 3.5.2
 
