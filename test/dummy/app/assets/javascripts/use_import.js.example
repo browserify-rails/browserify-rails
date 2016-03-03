@@ -1,0 +1,3 @@
+import universe from './simple_module';
+
+console.log(universe());

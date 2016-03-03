@@ -112,7 +112,7 @@ module BrowserifyRails
     # Be here as strict as possible, so that non-commonjs files are not
     # preprocessed.
     def commonjs_module?
-      data.to_s.include?("module.exports") || data.present? && data.to_s.match(/require\(.*\)/) && dependencies.length > 0
+      data.to_s.include?("module.exports") || data.present? && data.to_s.match(/(require\(.*\)|import)/) && dependencies.length > 0
     end
 
     def asset_paths
