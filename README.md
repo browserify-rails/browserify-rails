@@ -72,9 +72,8 @@ string, comment, or function.
 ## CoffeeScript
 
 For CoffeeScript support, make sure to follow the standard rails
-`.js.coffee` naming convention.  You'll also need to do the following:
-
-Add `coffeeify` as a dependency within `package.json`:
+`.js.coffee` naming convention.  You'll also need to add the npm
+package `coffeeify` as a dependency:
 
 ```js
 {
@@ -86,7 +85,7 @@ Add `coffeeify` as a dependency within `package.json`:
 }
 ```
 
-Add the following command line options within `application.rb`:
+and configure `browserify_rails` accordingly:
 
 ```rb
 config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.coffee\""
@@ -107,7 +106,7 @@ mentioned below into your `config/application.rb` or your environment file
 
 ```ruby
 class My::Application < Rails::Application
-  # Paths, that should be browserified. We browserify everything, that
+  # Specify the file paths that should be browserified. We browserify everything that
   # matches (===) one of the paths. So you will most likely put lambdas
   # regexes in here.
   #
@@ -116,7 +115,7 @@ class My::Application < Rails::Application
   # working.
   config.browserify_rails.paths << /vendor\/assets\/javascripts\/module\.js/
 
-  # Environments, in which to generate source maps
+  # Environments in which to generate source maps
   #
   # The default is none
   config.browserify_rails.source_map_environments << "development"
@@ -174,10 +173,9 @@ javascript:
       - a_huge_library
 ```
 
-Note that any valid browserify option is allowed in the YAML file but not
+Note that any valid browserify option is allowed in the YAML file but not all
 use cases have been considered. If your use case does not work, please open
-an issue with a runnable example of the problem including your
-browserify.yml file.
+an issue with a runnable example of the problem including your browserify.yml file.
 
 ### Inside Isolated Engines
 
@@ -228,7 +226,7 @@ buildpacks that run `bundle` and `npm install` on the target machine.
 
 You can easily use a browserify transform by adding it to your `package.json`, then adding the transform flag to your `application.rb`, using `config.browserify_rails.commandline_options`. For example, here is how you can add ES6 support in your app:
 
-1. Add babelify to your `package.json` in your app's root directory, then run `npm install`
+1. Add `babelify` to your `package.json` in your app's root directory, then run `npm install`
 2. Add this line to your config/application.rb:
    `config.browserify_rails.commandline_options = "-t babelify --extension-\".es6\""`
 3. Create some `.es6` files and require them with `var m = require('./m.es6')` or `import m from './m.es6`
@@ -249,6 +247,16 @@ correctly. You can manually clear the cache in at least two ways:
 The second method is definitely brute force but if you experience issues,
 it is definitely worth trying before spending too much time debugging
 why something that is browserified appears to not match the sources files.
+
+### Javascript Tests
+
+If you want to use `browserify` to process test files as well, you will
+need to configure `browserify-rails` to process files in your `spec` or `test`
+directories.
+
+```ruby
+config.browserify_rails.paths << lambda {|p| p.start_with?(Rails.root.join("spec/javascripts").to_s) }
+```
 
 ## Acceptance Test Failures
 
