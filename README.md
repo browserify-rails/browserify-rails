@@ -29,7 +29,7 @@ Create `package.json` in your Rails root:
 {
   "name": "something",
   "dependencies" : {
-    "browserify": "~> 10.2.4",
+    "browserify": "~10.2.4",
     "browserify-incremental": "^3.0.1"
   },
   "license": "MIT",
@@ -80,7 +80,7 @@ package `coffeeify` as a dependency:
   // ...
   "dependencies" : {
     // ...
-    "coffeeify": "~> 0.6"
+    "coffeeify": "~0.6"
   }
 }
 ```
