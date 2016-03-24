@@ -1,8 +1,5 @@
 # browserify-rails
 
-**If you are using react-rails or experience any issues with browserify-rails 2.x, please use the 1.5.x versions until 2.x is stabilized. Please see the issues for discussions and feel free to post your experience. The use of react-rails with browserify-rails is a bit of an anti-pattern in terms of going to CommonJS so it may never be supported. Consider using a browserify transform for React support.
-
-[![Join the chat at https://gitter.im/browserify-rails/browserify-rails](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/browserify-rails/browserify-rails?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Gem Version](https://badge.fury.io/rb/browserify-rails.svg)](http://badge.fury.io/rb/browserify-rails)
 
 This library adds CommonJS module support to Sprockets (via Browserify).
@@ -16,9 +13,6 @@ It lets you mix and match  `//= require` directives and `require()` calls for in
 5. Require *npm modules* in your Rails assets
 6. Require modules relative to asset paths (ie app/assets/javascript) with non-relative syntax (see below before using)
 7. Configure browserify options for each JavaScript file so you can mark modules with `--require`, `--external`, etc
-
-## Alternatives
-[Webpack](http://webpack.github.io/) is a popular alternative to Browserify for JavaScript tooling. A quick [Google search](https://www.google.com/search?q=browserify+vs+webpack&gws_rd=ssl) yields many articles on this topic. If you wish to use Webpack with Rails, the most popular solution is the gem [github.com/shakacode/react_on_rails](https://github.com/shakacode/react_on_rails/). While this gem focuses on React integration, it offers a solid example of how to integrate Webpack into your Rails workflow, even supporting hot-module-reloading. It also provides useful helpers to ensure that your Webpack created files are ready before tests run. A live example of these techniques can be found at [github.com/shakacode/react-webpack-rails-tutorial](https://github.com/shakacode/react-webpack-rails-tutorial/).
 
 ## Getting Started
 
@@ -284,6 +278,11 @@ Often one has one main module (say a library module) and other modules that
 consume the main module. It would be nice to be able to establish this
 relationship in the YAML file to avoid having to manually manage the require
 and external entries for the involved modules.
+
+## Alternatives
+
+[Webpack](http://webpack.github.io/) is a popular alternative to Browserify for JavaScript tooling. A quick [Google search](https://www.google.com/search?q=browserify+vs+webpack&gws_rd=ssl) yields many articles on this topic. If you wish to use Webpack with Rails, the most popular solution is the gem [github.com/shakacode/react_on_rails](https://github.com/shakacode/react_on_rails/). While this gem focuses on React integration, it offers a solid example of how to integrate Webpack into your Rails workflow, even supporting hot-module-reloading. It also provides useful helpers to ensure that your Webpack created files are ready before tests run. A live example of these techniques can be found at [github.com/shakacode/react-webpack-rails-tutorial](https://github.com/shakacode/react-webpack-rails-tutorial/).
+
 
 ## Contributors
 
