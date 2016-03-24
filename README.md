@@ -17,6 +17,9 @@ It lets you mix and match  `//= require` directives and `require()` calls for in
 6. Require modules relative to asset paths (ie app/assets/javascript) with non-relative syntax (see below before using)
 7. Configure browserify options for each JavaScript file so you can mark modules with `--require`, `--external`, etc
 
+## Alternatives
+[Webpack](http://webpack.github.io/) is a popular alternative to Browserify for JavaScript tooling. A quick [Google search](https://www.google.com/search?q=browserify+vs+webpack&gws_rd=ssl) yields many articles on this topic. If you wish to use Webpack with Rails, the most popular solution is the gem [github.com/shakacode/react_on_rails](https://github.com/shakacode/react_on_rails/). While this gem focuses on React integration, it offers a solid example of how to integrate Webpack into your Rails workflow, even supporting hot-module-reloading. It also provides useful helpers to ensure that your Webpack created files are ready before tests run. A live example of these techniques can be found at [github.com/shakacode/react-webpack-rails-tutorial](https://github.com/shakacode/react-webpack-rails-tutorial/).
+
 ## Getting Started
 
 Add this line to your application's Gemfile:
