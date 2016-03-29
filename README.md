@@ -146,6 +146,14 @@ class My::Application < Rails::Application
 
 [browserify-incremental](https://github.com/jsdf/browserify-incremental) is used to cache browserification of CommonJS modules. One of the side effects is that the absolute module path is included in the emitted JavaScript. Most people do not want this for production code so browerify-incremental is current disabled for the `production` and `staging` environments. Note that counter-intuitively, browserify-incremental helps even with a single build pass of your code because typically the same modules are used multiple times. So it helps even for say asset compilation on a push to Heroku.
 
+#### Enabling browserify-incremental in production
+
+To enable browserify-incremental in production, add the following line to `config/environments/production.rb`:
+
+```ruby
+config.browserify_rails.use_browserifyinc = true
+```
+
 ### Multiple bundles
 
 node-browserify supports [multiple bundles](https://github.com/substack/node-browserify#multiple-bundles)
