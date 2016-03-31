@@ -234,7 +234,7 @@ You can easily use a browserify transform by adding it to your `package.json`, t
 1. Add `babelify` and `babel-preset-es2015` to your `package.json` in your app's root directory, then run `npm install`
 2. Add this line to your config/application.rb:
    `config.browserify_rails.commandline_options = "-t [ babelify --presets [ es2015 ] --extensions .es6 ]"`
-3. Create some `.es6` files and require them with `var m = require('./m.es6')` or `import m from './m.es6`
+3. Create some `.es6` files and require them with `var m = require('./m.es6')` or `import m from './m.es6'`
 4. Restart your server, and you now have ES6 support!
 
 
