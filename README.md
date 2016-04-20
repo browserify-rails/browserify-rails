@@ -187,7 +187,7 @@ an issue with a runnable example of the problem including your browserify.yml fi
 To make browserify-rails work inside an isolated engine, add the engine app directory to the browserify-rails paths (inside engine.rb):
 
 ```ruby
-config.browserify_rails.paths << lambda { |p| p.start_with?(Engine.root.join("app").to_s) }
+config.browserify_rails.paths << -> (p) { p.start_with?(Engine.root.join("app").to_s) }
 ```
 
 If you wish to put the node_modules directory within the engine, you have some control over it with:
@@ -260,7 +260,7 @@ need to configure `browserify-rails` to process files in your `spec` or `test`
 directories.
 
 ```ruby
-config.browserify_rails.paths << lambda {|p| p.start_with?(Rails.root.join("spec/javascripts").to_s) }
+config.browserify_rails.paths << -> (p) { p.start_with?(Rails.root.join("spec/javascripts").to_s) }
 ```
 
 ## Acceptance Test Failures
