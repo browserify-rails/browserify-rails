@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [3.1.0] - 2016-05-23
+- relax railties requirement to < 5.1
+
 ## [3.0.1] - 2016-03-03
 - detect import keyword and process as module if found
 
