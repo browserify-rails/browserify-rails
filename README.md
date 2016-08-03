@@ -198,7 +198,7 @@ config.browserify_rails.node_bin = "some/directory"
 
 ### Example setup
 
-Refer to this repo for setting up this gem with ES6 and all front-end goodies like react and all - [https://github.com/gauravtiwari/browserify-rails](https://github.com/gauravtiwari/browserify-rails)
+Refer to this repo for setting up this gem with ES6 and all front-end goodies like react and all - [github.com/gauravtiwari/browserify-rails](https://github.com/gauravtiwari/browserify-rails)
 
 ## Support for rails asset directories as non-relative module sources
 
