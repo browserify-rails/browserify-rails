@@ -196,6 +196,10 @@ If you wish to put the node_modules directory within the engine, you have some c
 config.browserify_rails.node_bin = "some/directory"
 ```
 
+### Example setup
+
+Refer to this repo for setting up this gem with ES6 and all front-end goodies like react and all - [https://github.com/gauravtiwari/browserify-rails](https://github.com/gauravtiwari/browserify-rails)
+
 ## Support for rails asset directories as non-relative module sources
 
 In the Rails asset pipeline, it is common to have files in
@@ -226,7 +230,7 @@ buildpacks that run `bundle` and `npm install` on the target machine.
 
     $ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs.git
     $ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-ruby.git
-    
+
 ## Using Browserify Transforms
 
 You can easily use a browserify transform by adding it to your `package.json`, then adding the transform flag to your `application.rb`, using `config.browserify_rails.commandline_options`. For example, here is how you can add ES6 support in your app:
