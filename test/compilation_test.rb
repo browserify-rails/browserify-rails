@@ -1,4 +1,4 @@
-require "test_helper"
+require_relative "test_helper"
 
 class BrowserifyTest < ActionDispatch::IntegrationTest
   def copy_example_file(filename, path = nil)

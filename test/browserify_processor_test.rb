@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative 'test_helper'
 
 class BrowserifyProcessorTest < ActiveSupport::TestCase
   def stub_engine_config(hash)
