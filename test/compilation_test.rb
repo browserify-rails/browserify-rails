@@ -17,7 +17,7 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     Rails.application.assets.cache = Sprockets::Cache::MemoryStore.new
     BrowserifyRails::BrowserifyProcessor.instance.instance_variable_set(:@dependencies, nil)
     cache_file = File.join(Rails.root, "tmp/cache/browserify-rails/browserifyinc-cache.json")
-    File.delete(cache_file) if File.exists?(cache_file)
+    File.delete(cache_file) if File.exist?(cache_file)
 
     copy_example_file "application.js.example"
     copy_example_file "foo.js.example"
