@@ -2,6 +2,7 @@ require "open3"
 require "fileutils"
 require "tempfile"
 require "shellwords"
+require "addressable"
 
 module BrowserifyRails
   class BrowserifyProcessor
@@ -44,7 +45,7 @@ module BrowserifyRails
           resolved = path
         end
 
-        dependencies << "file-digest://#{URI.escape resolved}" if resolved
+        dependencies << "file-digest://#{Addressable::URI.escape resolved}" if resolved
       end
 
       new_data = run_browserify(input[:name])
