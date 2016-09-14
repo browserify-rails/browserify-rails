@@ -21,4 +21,10 @@ ActiveSupport::TestCase.class_eval do
       contents.gsub(/__RAILS_ROOT__/, Rails.root.to_s) if contents
     end
   end
+
+  def fix(filename, contents)
+    File.open(File.join(File.dirname(__FILE__), "fixtures", filename), "w") do |f|
+      f.write(contents)
+    end
+  end
 end
