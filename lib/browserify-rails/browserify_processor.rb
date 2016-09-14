@@ -78,12 +78,12 @@ module BrowserifyRails
       error = ->(cmd) { "Unable to run #{cmd}. Ensure you have installed it with npm." }
 
       # Browserify has to be installed in any case
-      if !File.exists?(rails_path(browserify_cmd))
+      if !File.exist?(rails_path(browserify_cmd))
         raise BrowserifyRails::BrowserifyError.new(error.call(browserify_cmd))
       end
 
       # If the user wants to use browserifyinc, we need to ensure it's there too
-      if config.use_browserifyinc && !File.exists?(rails_path(browserifyinc_cmd))
+      if config.use_browserifyinc && !File.exist?(rails_path(browserifyinc_cmd))
         raise BrowserifyRails::BrowserifyError.new(error.call(browserifyinc_cmd))
       end
     end
@@ -144,7 +144,7 @@ module BrowserifyRails
 
         list.lines.map(&:strip).select do |path|
           # Filter the temp file, where browserify caches the input stream
-          File.exists?(path)
+          File.exist?(path)
         end
       end
     end
