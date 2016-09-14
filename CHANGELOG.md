@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [3.2.0] - 2016-09-14
+- make compatible with sprockets 4 (thanks marvwhere!)
+- update dummy rails to use current browserify and browserify-incremental
+- use Addressable gem for URI.escape instead of deprecated method
+- replace uses of deprecated File.exists? with File.exist?
+- make it easy to run each test file separately
+- make it so the dummy rails is startable with Rails 5
+
 ## [3.1.0] - 2016-05-23
 - relax railties requirement to < 5.1
 
