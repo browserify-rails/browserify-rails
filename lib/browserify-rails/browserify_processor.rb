@@ -37,9 +37,13 @@ module BrowserifyRails
       # Signal dependencies to sprockets to ensure we track changes
       evaluate_dependencies(input[:environment].paths).each do |path|
         resolved = input[:environment].resolve(path)
-        if config.evaluate_node_modules && !resolved
+
+        if resolved && resolved.is_a?(Array)
+          resolved = resolved[0]
+        elsif config.evaluate_node_modules && !resolved
           resolved = path
         end
+
         dependencies << "file-digest://#{URI.escape resolved}" if resolved
       end
 
