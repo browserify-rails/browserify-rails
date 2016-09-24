@@ -298,11 +298,6 @@ and external entries for the involved modules.
 Use a tool like ProcMan to kick off a webpack or browserify process to rebuild your JavaScript on change. Reference the bundle in your Rails template and away you go. With webpack, you can even use the dev server and point to the dev server port in your Rails template to load JavaScript directly from webpack (it'll block on build so you'll always get your latest code). This does require configuring webpack hot middleware to have a port (see [__webpack_hmr goes to the wrong port and fails](http://stackoverflow.com/questions/35446109/webpack-hmr-goes-to-the-wrong-port-and-fails/35446292#35446292)).
 
 
-### react_on_rails
-
-[Webpack](http://webpack.github.io/) is a popular alternative to Browserify for JavaScript tooling. A quick [Google search](https://www.google.com/search?q=browserify+vs+webpack&gws_rd=ssl) yields many articles on this topic. If you wish to use Webpack with Rails, the most popular solution is the gem [github.com/shakacode/react_on_rails](https://github.com/shakacode/react_on_rails/). While this gem focuses on React integration, it offers a solid example of how to integrate Webpack into your Rails workflow, even supporting hot-module-reloading. It also provides useful helpers to ensure that your Webpack created files are ready before tests run. A live example of these techniques can be found at [github.com/shakacode/react-webpack-rails-tutorial](https://github.com/shakacode/react-webpack-rails-tutorial/).
-
-
 ## Contributors
 
 * [Henry Hsu](https://github.com/hsume2)
