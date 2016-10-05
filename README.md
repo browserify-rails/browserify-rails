@@ -1,6 +1,6 @@
 # browserify-rails
 
-## This project is currently in maintenance mode. New contributors are more than welcome!
+## This project is currently in maintenance mode. New contributors are more than welcome! ##
 
 [![Gem Version](https://badge.fury.io/rb/browserify-rails.svg)](http://badge.fury.io/rb/browserify-rails)
 
