@@ -2,7 +2,7 @@
 
 This project is currently in maintenance mode. New contributors are more than welcome!
 
-[![Gem Version](https://badge.fury.io/rb/browserify-rails.svg)](http://badge.fury.io/rb/browserify-rails) ![https://rubygems.org/gems/browserify-rails](https://img.shields.io/gem/dt/browserify-rails.svg)
+[![Gem Version](https://badge.fury.io/rb/browserify-rails.svg)](http://badge.fury.io/rb/browserify-rails) [![](https://img.shields.io/gem/dt/browserify-rails.svg)](https://rubygems.org/gems/browserify-rails)
 
 This library adds CommonJS module support to Sprockets (via Browserify).
 
