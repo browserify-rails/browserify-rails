@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [3.3.0] - 2016-10-25
+- normalize dependency paths for cross platform compability thanks to msjonker
+
 ## [3.2.0] - 2016-09-14
 - make compatible with sprockets 4 (thanks marvwhere!)
 - update dummy rails to use current browserify and browserify-incremental
