@@ -142,7 +142,12 @@ module BrowserifyRails
         # option to get a list of files.
         list = run_browserify(nil, "--list")
 
-        list.lines.map(&:strip).select do |path|
+        cleaned_paths = list.lines.map do |path|
+          # clean and normalize paths for all operating systems
+          Pathname.new(path.strip).cleanpath.to_s
+        end
+
+        cleaned_paths.select do |path|
           # Filter the temp file, where browserify caches the input stream
           File.exist?(path)
         end
