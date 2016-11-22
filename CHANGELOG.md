@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [3.4.0] - 2016-11-22
+- speeds up build by up to 20% thanks to cguillemette (see PR #183)
+- update README for using in engine thanks to valentin-krasontovitsch (see PR #187)
+
 ## [3.3.0] - 2016-10-25
 - normalize dependency paths for cross platform compability thanks to msjonker
 
