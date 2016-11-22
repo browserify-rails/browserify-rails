@@ -51,6 +51,17 @@ var foo = require('./foo');
 console.log(foo(12));
 ```
 
+To include external modules, include them in your `package.json` and run
+`npm install`. Assuming you did the above for instance for the package
+`knock-knock-jokes`, you are now able to write
+
+```js
+var  knockknock = require('knockknockjokes');
+console.log(knockknock());
+```
+
+in your scripts.
+
 #### Gotchas with `require` and `module.exports`
 
 Do not put `module.exports` or `require()` in JavaScript comments or strings.
@@ -176,6 +187,7 @@ an issue with a runnable example of the problem including your browserify.yml fi
 
 ### Inside Isolated Engines
 
+Note first that the gem should be included in the gemspec instead of the Gemset file.
 To make browserify-rails work inside an isolated engine, add the engine app directory to the browserify-rails paths (inside engine.rb):
 
 ```ruby
@@ -186,6 +198,12 @@ If you wish to put the node_modules directory within the engine, you have some c
 
 ```ruby
 config.browserify_rails.node_bin = "some/directory"
+```
+
+Assuming your `node_modules` directory is in the engine root, this could become
+
+```ruby
+config.browserify_rails.node_bin = Engine.root.join('../../node_modules')
 ```
 
 ## Support for rails asset directories as non-relative module sources
