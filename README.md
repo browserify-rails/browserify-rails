@@ -56,7 +56,7 @@ To include external modules, include them in your `package.json` and run
 `knock-knock-jokes`, you are now able to write
 
 ```js
-var  knockknock = require('knockknockjokes');
+var  knockknock = require('knock-knock-jokes');
 console.log(knockknock());
 ```
 
