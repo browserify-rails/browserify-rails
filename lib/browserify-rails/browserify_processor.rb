@@ -21,8 +21,9 @@ module BrowserifyRails
     end
 
     def call(input)
-      self.data = input[:data]
       self.file = input[:filename]
+      return input[:data] unless in_path?
+      self.data = input[:data]
 
       # Clear the cached dependencies because the source file changes
       @dependencies = nil
