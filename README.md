@@ -60,7 +60,7 @@ var  knockknock = require('knock-knock-jokes');
 console.log(knockknock());
 ```
 
-in your scripts.
+for instance at the bottom of your `application.js`.
 
 #### Gotchas with `require` and `module.exports`
 
