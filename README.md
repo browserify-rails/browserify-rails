@@ -284,6 +284,17 @@ Pull requests appreciated. Pull requests will not be rejected based on
 ideological neurosis of either the NodeJS or the Ruby on Rails communities.
 In other words, technical needs are respected.
 
+## Running the dummy Rails app
+
+There is a dummy rails app in `test/dummy`. You can change to that directory
+and run `bundle install` and then `bundle exec rails server`. You can see
+the test JavaScript files in `app/assets/javascripts` so try loading one --
+for example `http://localhost:3000/assets/application.js`.
+
+You can use this dummy app to try out your coding/refactoring/hacking ideas
+and also see how the tests are written. To run the tests, run `bundle exec rake test`
+in the root directory of the browserify-rails code (not in the dummy app).
+
 ## Potential areas of change (contributions welcome)
 
 ### Multiple modules
