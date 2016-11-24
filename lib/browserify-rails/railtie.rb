@@ -24,16 +24,9 @@ module BrowserifyRails
     # until then, disable in staging and production
     config.browserify_rails.use_browserifyinc = !["staging", "production"].include?(Rails.env)
 
-    if config.respond_to?(:assets)
-      config.assets.configure do |env|
-        load_granular_configuration
-        env.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
-      end
-    else
-      initializer :setup_browserify do |app|
-        load_granular_configuration
-        app.assets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
-      end
+    initializer :setup_browserify do |app|
+      load_granular_configuration
+      Sprockets.register_postprocessor "application/javascript", BrowserifyRails::BrowserifyProcessor
     end
 
 
