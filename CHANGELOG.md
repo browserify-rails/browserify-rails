@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [4.0.0] - 2017-02-07
+- depend on sprockets >= 3.6.0 and change to new API usage (#11f7c3c)
+
 ## [3.4.0] - 2016-11-22
 - speeds up build by up to 20% thanks to cguillemette (see PR #183)
 - update README for using in engine thanks to valentin-krasontovitsch (see PR #187)

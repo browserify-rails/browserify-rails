@@ -1,3 +1,3 @@
 module BrowserifyRails
-  VERSION = "4.0.0.b"
+  VERSION = "4.0.0"
 end
