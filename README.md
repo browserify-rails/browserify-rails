@@ -26,10 +26,10 @@ Create `package.json` in your Rails root:
 
 ```js
 {
-  "name": "something",
+  "name": "my-rails-app",
   "dependencies" : {
-    "browserify": "~10.2.4",
-    "browserify-incremental": "^3.0.1"
+    "browserify": "^14.1.0",
+    "browserify-incremental": "^3.1.1"
   },
   "license": "MIT",
   "engines": {
