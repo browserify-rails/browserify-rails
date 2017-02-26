@@ -295,4 +295,19 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
       Dummy::Application.config.browserify_rails.commandline_options = ""
     end
   end
+
+  test "generates files under plain browserify with browserifyinc disabled" do
+    Dummy::Application.config.browserify_rails.use_browserifyinc = false
+
+    begin
+      expected_output = fixture("main.out.js")
+
+      get "/assets/main.js"
+
+      assert_response :success
+      assert_equal expected_output, @response.body.strip
+    ensure
+    Dummy::Application.config.browserify_rails.use_browserifyinc = true
+    end
+  end
 end

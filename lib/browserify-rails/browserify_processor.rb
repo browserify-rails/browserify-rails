@@ -242,6 +242,7 @@ module BrowserifyRails
       end
 
       # Read the output that was stored in the temp file
+      output_file.open
       output = output_file.read
 
       # Destroy the temp file (good practice)
