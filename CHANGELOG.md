@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [4.1.0] - 2017-02-25
+- makes compatible with browserify 14.1.0
+  see: https://github.com/browserify-rails/browserify-rails/pull/193
+
 ## [4.0.0] - 2017-02-07
 - depend on sprockets >= 3.6.0 
   (https://github.com/browserify-rails/browserify-rails/commit/11f7c3c)
