@@ -1,4 +1,4 @@
-Copyright (c) 2013 Henry Hsu
+Copyright (c) 2013-present Henry Hsu, Cymen Vig
 
 MIT License
 
