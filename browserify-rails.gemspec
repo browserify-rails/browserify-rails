@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
 
-  spec.add_runtime_dependency "railties", ">= 4.0.0", "< 5.1"
+  spec.add_runtime_dependency "railties", ">= 4.0.0", "< 5.2"
   spec.add_runtime_dependency "sprockets", ">= 3.6.0"
   spec.add_runtime_dependency "addressable", ">= 2.4.0"
 
