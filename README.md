@@ -16,6 +16,34 @@ It lets you mix and match  `//= require` directives and `require()` calls for in
 6. Require modules relative to asset paths (ie app/assets/javascript) with non-relative syntax (see below before using)
 7. Configure browserify options for each JavaScript file so you can mark modules with `--require`, `--external`, etc
 
+## Should you use this gem?
+
+As the primary developer, I'm going to offer some opiniated advice. The sweet spot for this
+gem is for Rails projects with legacy JavaScript (not using CommonJS/modules). This gem is
+a great way to make it possible to rewrite that legacy JavaScript to CommonJS on a timeline
+that you dictate. Then consider stepping off the Rails asset pipeline or using another gem.
+
+If you're starting a new Rails project today, I highly recommend looking at alternatives to
+this gem. The primary reason is that this gem, while it works well, is not as efficient as
+most would like for local development. Also a lot has changed over the last couple of years.
+
+An example of that change is this project from Rails:
+
+[rails/webpacker](https://github.com/rails/webpacker)
+
+This is a huge step in the right direction for the Rails community. In the past, it has been
+extremely frustrating working with JavaScript on the asset pipeline. The good news is you have a lot
+of great choices. If I were starting a new Rails project today, I think the safest choice is
+one in which you have a Procfile that kicks off a separate Webpack build and you use zero
+Rails magic. A slightly less safe but maybe more convenient choice would be trying rails/webpacker
+or another gem. The choice is yours.
+
+
+For more discussion on this topic, see issues
+[203](https://github.com/browserify-rails/browserify-rails/issues/203),
+[161](https://github.com/browserify-rails/browserify-rails/issues/161),
+[43](https://github.com/browserify-rails/browserify-rails/issues/43), etc.
+
 ## Getting Started
 
 Add this line to your application's Gemfile:
