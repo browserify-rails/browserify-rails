@@ -34,7 +34,7 @@ An example of that change is this project from Rails:
 This is a huge step in the right direction for the Rails community. In the past, it has been
 extremely frustrating working with JavaScript on the asset pipeline. The good news is you have a lot
 of great choices. If I were starting a new Rails project today, I think the safest choice is
-one in which you have a Procfile that kicks off a separate Webpack build and you use zero
+one in which you have a [Procfile](https://mattstauffer.co/blog/using-a-procfile-to-streamline-your-local-development) that kicks off a separate Webpack build and you use zero
 Rails magic. A slightly less safe but maybe more convenient choice would be trying rails/webpacker
 or another gem. The choice is yours.
 
