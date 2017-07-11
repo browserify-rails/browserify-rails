@@ -263,13 +263,29 @@ buildpacks that run `bundle` and `npm install` on the target machine.
 
 ## Using Browserify Transforms
 
-You can easily use a browserify transform by adding it to your `package.json`, then adding the transform flag to your `application.rb`, using `config.browserify_rails.commandline_options`. For example, here is how you can add ES6 support in your app:
+You can easily use a browserify transform by making some additions to your `package.json` and creating a .babelrc. For example, here is how you can add ES6 support in your app:
 
-1. Add `babelify` and `babel-preset-es2015` to your `package.json` in your app's root directory, then run `npm install`
-2. Add this line to your config/application.rb:
-   `config.browserify_rails.commandline_options = "-t [ babelify --presets [ es2015 ] --extensions .es6 ]"`
-3. Create some `.es6` files and require them with `var m = require('./m.es6')` or `import m from './m.es6'`
-4. Restart your server, and you now have ES6 support!
+1. Add `babelify` and `babel-preset-es2015` to your `package.json` in your app's root directory either by editing the file directly and running `npm install` or using `npm install babelify --save` and `npm install babel-preset-es2015 --save`
+2. Update your `package.json` to contain the babelify transform by adding the following lines
+```
+   "browserify": {
+    "transform": [
+      [
+        "babelify"
+      ]
+    ]
+  }
+```
+3. Create a `.babelrc` file in the project root with the following contents
+```
+{
+  "plugins": [],
+  "presets": ["es2015"]
+}
+```
+   
+4. Create some `.es6` files and require them with `var m = require('./m.es6')` or `import m from './m.es6'`
+5. Restart your server, and you now have ES6 support!
 
 
 ## Troubleshooting
