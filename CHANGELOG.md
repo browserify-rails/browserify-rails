@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [4.3.0.pre] - 2018-04-12
+- relax railties requirement to not have an upper limit
+
 ## [4.2.0] - 2017-04-28
 - relax railties requirement to < 5.2
 
