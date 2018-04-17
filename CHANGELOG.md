@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [4.3.0] - 2018-04-17
+- release 4.3.0.pre as 4.3.0 unchanged
+
 ## [4.3.0.pre] - 2018-04-12
 - relax railties requirement to not have an upper limit
 
