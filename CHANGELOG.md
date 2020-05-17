@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file going forward.
 
+## [4.4.0] - 2020-05-16
+- sprockets 4 support thanks to dkamenka
+- fix tests
+
 ## [4.3.0] - 2018-04-17
 - release 4.3.0.pre as 4.3.0 unchanged
 
