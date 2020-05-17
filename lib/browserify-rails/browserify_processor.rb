@@ -41,12 +41,12 @@ module BrowserifyRails
         resolved = input[:environment].resolve(path)
 
         if resolved && resolved.is_a?(Array)
-          resolved = resolved[0]
-        elsif config.evaluate_node_modules && !resolved
-          resolved = path
+          dependencies += resolved[1]
+        elsif resolved
+          dependencies << "file-digest://#{Addressable::URI.escape resolved}"
+        elsif config.evaluate_node_modules
+          dependencies << "file-digest://#{Addressable::URI.escape path}"
         end
-
-        dependencies << "file-digest://#{Addressable::URI.escape resolved}" if resolved
       end
 
       new_data = run_browserify(input[:name])
