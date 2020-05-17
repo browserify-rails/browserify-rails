@@ -182,6 +182,7 @@ class BrowserifyTest < ActionDispatch::IntegrationTest
     get "/assets/node_path_based_require.js"
 
     assert_response :success
+
     assert_equal expected_output, @response.body.strip
     assert_equal false, @response.body.include?("Error: Cannot find module 'some_folder/answer'")
   end
